@@ -66,7 +66,7 @@ public class Tracker: NSObject {
         geometry.firstMaterial?.diffuse.contents = UIColor.white
         let node = SCNNode()
         node.geometry = geometry
-        node.eulerAngles.x = -.pi / 2
+        node.eulerAngles.x = .pi / 2
         node.position.z = 0
         let parentNode = SCNNode()
         parentNode.addChildNode(node)
@@ -114,7 +114,8 @@ public class Tracker: NSObject {
 
         // Configure and start the ARSession to begin face tracking.
         let configuration = ARFaceTrackingConfiguration()
-        configuration.isLightEstimationEnabled = true
+        configuration.maximumNumberOfTrackedFaces = 1
+        configuration.worldAlignment = .gravity
         
         self.setupSceneGraph(scene: scene)
 
@@ -152,9 +153,7 @@ extension Tracker: ARSCNViewDelegate, ARSessionDelegate {
         faceNode.simdTransform = anchor.transform
         eyeLNode.simdTransform = anchor.leftEyeTransform
         eyeRNode.simdTransform = anchor.rightEyeTransform
-//        virtualScreenNode.rotation = faceNode.rotation
         gazeNode.simdTransform = anchor.leftEyeTransform.average(with: anchor.rightEyeTransform)
-        print(virtualScreenNode.worldPosition)
         
         DispatchQueue.main.async {
             // intersection of the ray with viewpoint plane
