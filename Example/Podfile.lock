@@ -1,0 +1,16 @@
+PODS:
+  - GazeTracker (0.1.0)
+
+DEPENDENCIES:
+  - GazeTracker (from `../`)
+
+EXTERNAL SOURCES:
+  GazeTracker:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  GazeTracker: b11d2cad3c92476c6970bc45ad65c3d78a33ce1c
+
+PODFILE CHECKSUM: 87c76f1ada7c2d1f09ff811d216d708b303fb868
+
+COCOAPODS: 1.10.2
