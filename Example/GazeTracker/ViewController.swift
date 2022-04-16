@@ -9,50 +9,11 @@
 import UIKit
 import ARKit
 import GazeTracker
+import NotificationBannerSwift
 
 class ViewController: UIViewController {
     
-    private let tracker = Tracker(image: UIImage(named: "texture")!)
-    
-    private lazy var verticalSensitivitySlider: UISlider = {
-        let slider = UISlider()
-        slider.maximumValue = 10.0
-        slider.minimumValue = -10.0
-        slider.value = UserDefaults.standard.float(forKey: "vertical-sens")
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.isUserInteractionEnabled = true
-        return slider
-    }()
-    
-    private lazy var horizontalSensitivitySlider: UISlider = {
-        let slider = UISlider()
-        slider.maximumValue = 10.0
-        slider.minimumValue = -10.0
-        slider.value = UserDefaults.standard.float(forKey: "horizontal-sens")
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.isUserInteractionEnabled = true
-        return slider
-    }()
-    
-    private lazy var verticalSiderLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 16, weight: .thin)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Vertical Sens: \(UserDefaults.standard.float(forKey: "vertical-sens"))"
-        
-        return label
-    }()
-    
-    private lazy var horizontalSiderLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 16, weight: .thin)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Horizontal Sens: \(UserDefaults.standard.float(forKey: "horizontal-sens"))"
-        
-        return label
-    }()
+    private let tracker = ARKitTracker()
     
     private lazy var pointer: UIView = {
         let pointer = UIView(frame: CGRect(origin: .zero, size: .init(width: 10, height: 10)))
@@ -104,16 +65,13 @@ class ViewController: UIViewController {
         self.view.addSubview(self.predictedPointLabel)
         self.view.addSubview(self.predictedDistanceLabel)
         self.dots.forEach { self.view.addSubview($0) }
-//        self.view.addSubview(self.horizontalSensitivitySlider)
-//        self.view.addSubview(self.verticalSensitivitySlider)
-//        self.view.addSubview(self.horizontalSiderLabel)
-//        self.view.addSubview(self.verticalSiderLabel)
         self.view.addSubview(self.pointer)
         self.sceneView.session = tracker.currentSession
-        tracker.pointOfView = self.sceneView.pointOfView
+        sceneView.debugOptions = [.showWorldOrigin]
+
         tracker.startSession(scene: self.sceneView.scene)
-        self.verticalSensitivitySlider.addTarget(self, action: #selector(self.handleVerticalSlider), for: .valueChanged)
-        self.horizontalSensitivitySlider.addTarget(self, action: #selector(self.handleHorizontalSlider), for: .valueChanged)
+        tracker.delegate = self
+
         let sizeConstraints = self.dots.flatMap {
             return [
                 $0.widthAnchor.constraint(equalToConstant: 50),
@@ -144,20 +102,6 @@ class ViewController: UIViewController {
             self.dots[2].leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
             self.dots[2].bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             
-//            self.verticalSensitivitySlider.bottomAnchor.constraint(equalTo: self.horizontalSiderLabel.topAnchor, constant: -36),
-//            self.verticalSensitivitySlider.leadingAnchor.constraint(equalTo: self.dots[2].trailingAnchor, constant: 8),
-//            self.verticalSensitivitySlider.trailingAnchor.constraint(equalTo: self.dots[3].leadingAnchor, constant: -8),
-//
-//            self.horizontalSensitivitySlider.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
-//            self.horizontalSensitivitySlider.leadingAnchor.constraint(equalTo: self.dots[2].trailingAnchor, constant: 8),
-//            self.horizontalSensitivitySlider.trailingAnchor.constraint(equalTo: self.dots[3].leadingAnchor, constant: -8),
-//
-//            self.horizontalSiderLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-//            self.horizontalSiderLabel.bottomAnchor.constraint(equalTo: self.horizontalSensitivitySlider.topAnchor, constant: -8),
-//
-//            self.verticalSiderLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-//            self.verticalSiderLabel.bottomAnchor.constraint(equalTo: self.verticalSensitivitySlider.topAnchor, constant: -8),
-            
             self.dots[3].bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             self.dots[3].trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
             
@@ -169,33 +113,6 @@ class ViewController: UIViewController {
         ] + sizeConstraints
         
         NSLayoutConstraint.activate(constraints)
-        tracker.didUpdatePrediction = { [weak self] info in
-            guard let self = self else { return }
-            self.pointer.center = info.predictedPoint
-            
-            self.dots.forEach({ view in
-                if self.pointer.frame.intersects(view.frame) {
-                    view.backgroundColor = .green
-                } else {
-                    view.backgroundColor = .white
-                }
-            })
-            
-            self.predictedPointLabel.text = "Predicted screen point: (\(round(info.predictedPoint.x)), \(round(info.predictedPoint.y)))"
-            self.predictedDistanceLabel.text = "Predicted distance to screen: \(info.predictedDistance) m."
-        }
-    }
-    
-    @objc func handleVerticalSlider() {
-        self.verticalSiderLabel.text = "Vertical Sens: \(self.verticalSensitivitySlider.value)"
-        UserDefaults.standard.set(self.verticalSensitivitySlider.value, forKey: "vertical-sens")
-        self.tracker.verticalSensitivity = self.verticalSensitivitySlider.value
-    }
-    
-    @objc func handleHorizontalSlider() {
-        self.horizontalSiderLabel.text = "Horizontal Sens: \(self.horizontalSensitivitySlider.value)"
-        UserDefaults.standard.set(self.horizontalSensitivitySlider.value, forKey: "horizontal-sens")
-        self.tracker.horizontalSensitivity = self.horizontalSensitivitySlider.value
     }
 
     override func didReceiveMemoryWarning() {
@@ -203,5 +120,53 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension ViewController: GazeTrackingBackendDelegate {
+    func tracker(didEmit event: GazeTrackingEvent) {
+        var bannerText: String?
+        switch event.name {
+        case .rightEyeBlink:
+            bannerText = "Right Eye Blink"
+        case .leftEyeBlink:
+            bannerText = "Left Eye Blink"
+        case .bothEyesBlink:
+            bannerText = "Both Eyes Blink"
+        default:
+            break
+        }
+        
+        if let bannerText = bannerText {
+            
+            let view = UIView(frame: .init(origin: .zero, size: CGSize(width: 30, height: 30)))
+            view.backgroundColor = .systemBlue
+            view.layer.cornerRadius = 15
+            self.view.addSubview(view)
+            view.center = event.screenPoint
+            
+            UIView.animate(withDuration: 1) {
+                view.alpha = 0
+            } completion: { _ in
+                view.removeFromSuperview()
+            }
+
+            NotificationBannerQueue.default.removeAll()
+            NotificationBanner(title: bannerText)
+                .show(queuePosition: .front, bannerPosition: .top, queue: .default)
+        }
+        
+        self.pointer.center = event.screenPoint
+        
+        self.dots.forEach({ view in
+            if self.pointer.frame.intersects(view.frame) {
+                view.backgroundColor = .green
+            } else {
+                view.backgroundColor = .white
+            }
+        })
+        
+        self.predictedPointLabel.text = "Predicted screen point: (\(round(event.screenPoint.x)), \(round(event.screenPoint.y)))"
+        self.predictedDistanceLabel.text = "Predicted distance to screen: \(event.screenDistance) m."
+    }
 }
 

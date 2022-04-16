@@ -1,9 +1,10 @@
 use_frameworks!
 
-platform :ios, '9.0'
+platform :ios, '13.0'
 
 target 'GazeTracker_Example' do
   pod 'GazeTracker', :path => '../'
+  pod 'NotificationBannerSwift', '~> 3.0.0'
 
   target 'GazeTracker_Tests' do
     inherit! :search_paths

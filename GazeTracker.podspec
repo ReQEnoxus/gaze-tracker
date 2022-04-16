@@ -16,11 +16,5 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'GazeTracker/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'GazeTracker' => ['GazeTracker/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'DeviceKit', '~> 4.0'
 end
