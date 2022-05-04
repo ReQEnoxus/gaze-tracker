@@ -13,9 +13,14 @@ protocol DebouncerProtocol {
 
 class Debouncer: DebouncerProtocol {
     
+    var interval: DispatchTimeInterval {
+        didSet {
+            self.workItem.cancel()
+        }
+    }
+    
     private let queue = DispatchQueue.main
     private var workItem = DispatchWorkItem(block: {})
-    private var interval: DispatchTimeInterval
     
     init(timeInterval: DispatchTimeInterval = .milliseconds(50)) {
         self.interval = timeInterval
@@ -25,6 +30,10 @@ class Debouncer: DebouncerProtocol {
         self.workItem.cancel()
         self.workItem = DispatchWorkItem(block: { action() })
         self.queue.asyncAfter(deadline: .now() + self.interval, execute: self.workItem)
+    }
+    
+    func cancel() {
+        self.workItem.cancel()
     }
 }
 
