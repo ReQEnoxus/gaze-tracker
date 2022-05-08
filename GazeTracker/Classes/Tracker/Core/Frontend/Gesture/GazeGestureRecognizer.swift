@@ -8,6 +8,7 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
+/// Continous gesture recognizer that detects gaze position change
 open class GazeGestureRecognizer: EyeTrackerGestureRecognizer {
     
     private var currentEvent: GazeTrackingEvent?
@@ -19,6 +20,7 @@ open class GazeGestureRecognizer: EyeTrackerGestureRecognizer {
                   state = .failed
                   return
               }
+        guard event.name == .gazePositionChanged else { return }
         currentEvent = event
         let convertedPoint = view.convert(event.screenPoint, from: window)
         

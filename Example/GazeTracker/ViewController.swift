@@ -98,6 +98,14 @@ class ViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("BOTTOM BUTTON", for: .normal)
         button.addGestureRecognizer(GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture(_:))))
+        
+        let secondGazeRecognizer = GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture2(_:)))
+        button.addGestureRecognizer(secondGazeRecognizer)
+//        let longGazeRecognizer = LongGazeGestureRecognizer(target: self, action: #selector(self.handleLongGazeGesture(_:)))
+//        longGazeRecognizer.gazeInterval = .milliseconds(200)
+//        longGazeRecognizer.toleranceInterval = .milliseconds(30)
+//        button.addGestureRecognizer(longGazeRecognizer)
+        
         let blinkGesture = BlinkGestureRecognizer(target: self, action: #selector(self.handleBlinkGesture(_:)))
         blinkGesture.blinkType = .bothEyes
         blinkGesture.blinkCount = 2
@@ -214,6 +222,26 @@ class ViewController: UIViewController {
         }
     }
     
+    @objc private func handleGazeGesture2(_ gestureRecognizer: GazeGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            animateViewIn(gestureRecognizer.view, type: 2)
+            
+        case .ended:
+            animateViewOut(gestureRecognizer.view, type: 2)
+            
+        default:
+            break
+        }
+    }
+    
+    @objc private func handleLongGazeGesture(_ gestureRecognizer: LongGazeGestureRecognizer) {
+        animateViewIn(gestureRecognizer.view)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.animateViewOut(gestureRecognizer.view)
+        }
+    }
+    
     @objc private func handleBlinkGesture(_ gestureRecognizer: BlinkGestureRecognizer) {
         switch gestureRecognizer.view {
         case topButton:
@@ -244,21 +272,29 @@ class ViewController: UIViewController {
         }
     }
     
-    private func animateViewIn(_ view: UIView?) {
+    private func animateViewIn(_ view: UIView?, type: Int = 1) {
         guard let view = view else { return }
         
         UIView.animate(withDuration: 0.2) {
-            view.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
-            view.backgroundColor = .systemGreen
+            if type == 1 {
+                view.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
+                view.backgroundColor = .systemGreen
+            } else {
+                view.layer.cornerRadius = 30
+            }
         }
     }
     
-    private func animateViewOut(_ view: UIView?) {
+    private func animateViewOut(_ view: UIView?, type: Int = 1) {
         guard let view = view else { return }
         
         UIView.animate(withDuration: 0.2) {
-            view.transform = .identity
-            view.backgroundColor = .systemBlue
+            if type == 1 {
+                view.transform = .identity
+                view.backgroundColor = .systemBlue
+            } else {
+                view.layer.cornerRadius = 8
+            }
         }
     }
 }

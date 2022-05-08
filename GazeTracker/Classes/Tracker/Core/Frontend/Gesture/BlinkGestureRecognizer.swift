@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Discrete gesture recognizer that detects a certain number of blinks
 open class BlinkGestureRecognizer: EyeTrackerGestureRecognizer {
     public enum BlinkType {
         case leftEye
@@ -43,12 +44,10 @@ open class BlinkGestureRecognizer: EyeTrackerGestureRecognizer {
         
         if event.name == expectedEvent {
             currentBlinkCount += 1
-            print("log_current_count = \(currentBlinkCount), event: \(blinkType)")
             if currentBlinkCount == blinkCount {
                 state = .recognized
             } else {
                 debouncer.debounce { [weak self] in
-                    print("log_canceled")
                     self?.state = .failed
                 }
             }
@@ -57,7 +56,6 @@ open class BlinkGestureRecognizer: EyeTrackerGestureRecognizer {
     
     open override func reset() {
         super.reset()
-        print("log_reset")
         currentBlinkCount = 0
     }
 }
