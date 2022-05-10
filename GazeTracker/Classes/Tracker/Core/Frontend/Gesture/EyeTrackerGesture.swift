@@ -9,12 +9,15 @@ import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
 public protocol EyeTrackerGestureProtocol {
-    func processEvent(_ event: GazeTrackingEvent)
+    func processEvent(_ event: GazeEvent)
 }
 
 open class EyeTrackerGestureRecognizer: UIGestureRecognizer, EyeTrackerGestureProtocol {
-    public func processEvent(_ event: GazeTrackingEvent) {
-        // override
+    public func processEvent(_ event: GazeEvent) {
+        guard delegate?.gestureRecognizerShouldBegin?(self) != false else {
+            state = .failed
+            return
+        }
     }
 }
 

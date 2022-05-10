@@ -42,8 +42,8 @@ open class LongGazeGestureRecognizer: EyeTrackerGestureRecognizer {
     private let gazeDebouncer = Debouncer(timeInterval: .milliseconds(100))
     private let toleranceDebouncer = Debouncer(timeInterval: .milliseconds(20))
     
-    public override func processEvent(_ event: GazeTrackingEvent) {
-        guard event.name == .gazePositionChanged else { return }
+    public override func processEvent(_ event: GazeEvent) {
+        guard event.underlyingEvent.name == .gazePositionChanged else { return }
         switch detectionState {
         case .idle:
             detectionState = .tracking
@@ -60,6 +60,10 @@ open class LongGazeGestureRecognizer: EyeTrackerGestureRecognizer {
                 self?.moveToFailedState()
             }
         }
+    }
+    
+    open override func shouldReceive(_ event: UIEvent) -> Bool {
+        return (event as? GazeEvent)?.underlyingEvent.name == .gazePositionChanged
     }
     
     private func moveToRecognizedState() {

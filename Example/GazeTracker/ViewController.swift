@@ -101,6 +101,7 @@ class ViewController: UIViewController {
         
         let secondGazeRecognizer = GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture2(_:)))
         button.addGestureRecognizer(secondGazeRecognizer)
+        secondGazeRecognizer.delegate = self
 //        let longGazeRecognizer = LongGazeGestureRecognizer(target: self, action: #selector(self.handleLongGazeGesture(_:)))
 //        longGazeRecognizer.gazeInterval = .milliseconds(200)
 //        longGazeRecognizer.toleranceInterval = .milliseconds(30)
@@ -296,6 +297,12 @@ class ViewController: UIViewController {
                 view.layer.cornerRadius = 8
             }
         }
+    }
+}
+
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return otherGestureRecognizer is GazeGestureRecognizer
     }
 }
 

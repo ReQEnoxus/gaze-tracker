@@ -30,7 +30,24 @@ open class BlinkGestureRecognizer: EyeTrackerGestureRecognizer {
     private var currentBlinkCount = 0
     private var debouncer = Debouncer()
     
-    public override func processEvent(_ event: GazeTrackingEvent) {
+    public override func processEvent(_ event: GazeEvent) {
+        currentBlinkCount += 1
+        if currentBlinkCount == blinkCount {
+            state = .recognized
+        } else {
+            debouncer.debounce { [weak self] in
+                self?.state = .failed
+            }
+        }
+    }
+    
+    open override func reset() {
+        super.reset()
+        currentBlinkCount = 0
+    }
+    
+    open override func shouldReceive(_ event: UIEvent) -> Bool {
+        guard let event = event as? GazeEvent else { return false }
         let expectedEvent: GazeTrackingEvent.Name
         
         switch blinkType {
@@ -42,20 +59,6 @@ open class BlinkGestureRecognizer: EyeTrackerGestureRecognizer {
             expectedEvent = .bothEyesBlink
         }
         
-        if event.name == expectedEvent {
-            currentBlinkCount += 1
-            if currentBlinkCount == blinkCount {
-                state = .recognized
-            } else {
-                debouncer.debounce { [weak self] in
-                    self?.state = .failed
-                }
-            }
-        }
-    }
-    
-    open override func reset() {
-        super.reset()
-        currentBlinkCount = 0
+        return event.underlyingEvent.name == expectedEvent
     }
 }

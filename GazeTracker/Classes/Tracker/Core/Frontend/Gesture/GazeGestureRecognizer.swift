@@ -14,15 +14,15 @@ open class GazeGestureRecognizer: EyeTrackerGestureRecognizer {
     private var currentEvent: GazeTrackingEvent?
     private let debouncer = Debouncer(timeInterval: .milliseconds(60))
     
-    open override func processEvent(_ event: GazeTrackingEvent) {
+    open override func processEvent(_ event: GazeEvent) {
         guard let view = view,
               let window = view.window else {
                   state = .failed
                   return
               }
-        guard event.name == .gazePositionChanged else { return }
-        currentEvent = event
-        let convertedPoint = view.convert(event.screenPoint, from: window)
+        guard event.underlyingEvent.name == .gazePositionChanged else { return }
+        currentEvent = event.underlyingEvent
+        let convertedPoint = view.convert(event.underlyingEvent.screenPoint, from: window)
         
         if view.bounds.contains(convertedPoint) {
             if state == .began {
@@ -48,5 +48,9 @@ open class GazeGestureRecognizer: EyeTrackerGestureRecognizer {
               let currentEvent = currentEvent else { return .zero }
         
         return view.convert(currentEvent.screenPoint, from: window)
+    }
+    
+    open override func shouldReceive(_ event: UIEvent) -> Bool {
+        return (event as? GazeEvent)?.underlyingEvent.name == .gazePositionChanged
     }
 }
