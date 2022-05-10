@@ -10,19 +10,22 @@ import SceneKit
 import Foundation
 import DeviceKit
 
-public class ARKitTracker: NSObject {
+public class ARKitTracker: NSObject, BackendLayerProtocol {
     
     // MARK: - Public Properties
     
     public weak var delegate: GazeTrackingBackendDelegate?
     
-    public var leftEyeBlinkSensitivity: Float = 0.5
-    public var rightEyeBlinkSensitivity: Float = 0.5
-    
-    public var blinkTimingOffset: Int = 9
-    
     public let currentSession = ARSession()
     public let scene = SCNScene()
+    
+    public required override init() {
+        super.init()
+    }
+    
+    // MARK: - Configuration
+    
+    private var configuration = ARKitTrackerConfiguration()
     
     // MARK: - Scene
     
@@ -59,7 +62,7 @@ public class ARKitTracker: NSObject {
     var gazeNode: SCNNode = {
         let geometry = SCNCone(topRadius: 0.002, bottomRadius: 0, height: 2)
         geometry.radialSegmentCount = 3
-        geometry.firstMaterial?.diffuse.contents = UIColor.white
+        geometry.firstMaterial?.diffuse.contents = UIColor.red
         let node = SCNNode()
         node.geometry = geometry
         node.eulerAngles.x = .pi / 2
@@ -112,9 +115,17 @@ public class ARKitTracker: NSObject {
     
     private var smoothingWindow = SlidingAverageableWindow<CGPoint>(capacity: 10)
     
-    // MARK: - Device Measurements
+    // MARK: - Configure
     
-    public func startSession(scene: SCNScene? = nil) {
+    public func configure(with configuration: ARKitTrackerConfiguration) {
+        self.configuration = configuration
+        smoothingWindow = SlidingAverageableWindow<CGPoint>(capacity: configuration.blinkFrameOffset + 1)
+        configuration.sceneView?.session = self.currentSession
+    }
+    
+    // MARK: - Interaction
+    
+    public func startTracking() {
         guard ARFaceTrackingConfiguration.isSupported else {
             assertionFailure("Face tracking not supported on this device.")
             return
@@ -125,11 +136,17 @@ public class ARKitTracker: NSObject {
         configuration.maximumNumberOfTrackedFaces = 1
 //        configuration.worldAlignment = .gravity
         
-        self.setupSceneGraph(scene: scene)
+        self.setupSceneGraph(scene: self.configuration.sceneView?.scene)
 
         self.currentSession.delegate = self
         self.currentSession.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
+    
+    public func endTracking() {
+        currentSession.pause()
+    }
+    
+    // MARK: - Scene
     
     private func setupSceneGraph(scene: SCNScene? = nil) {
         let scene = scene ?? self.scene
@@ -201,11 +218,11 @@ extension ARKitTracker: ARSCNViewDelegate, ARSessionDelegate {
         var leftEyeBlinked = false
         var rightEyeBlinked = false
         
-        if let leftProb = leftEyeBlinkProbability, leftProb.floatValue > self.leftEyeBlinkSensitivity {
+        if let leftProb = leftEyeBlinkProbability, leftProb.floatValue > self.configuration.leftEyeBlinkThreshold {
             leftEyeBlinked = true
         }
         
-        if let rightProb = rightEyeBlinkProbabiltity, rightProb.floatValue > self.rightEyeBlinkSensitivity {
+        if let rightProb = rightEyeBlinkProbabiltity, rightProb.floatValue > self.configuration.rightEyeBlinkThreshold {
             rightEyeBlinked = true
         }
         
@@ -222,8 +239,8 @@ extension ARKitTracker: ARSCNViewDelegate, ARSessionDelegate {
         }
         
         var point = window.contents.last ?? .zero
-        if self.blinkTimingOffset < window.contents.count {
-            point = window.contents[window.contents.endIndex - self.blinkTimingOffset]
+        if self.configuration.blinkFrameOffset < window.contents.count {
+            point = window.contents[window.contents.endIndex - self.configuration.blinkFrameOffset]
         }
         
         self.debouncer.debounce { [weak self] in

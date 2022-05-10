@@ -12,7 +12,7 @@ TODO: Add long description of the pod here.
   s.author           = { 'ReQEnoxus' => 'reqenoxus@gmail.com' }
   s.source           = { :git => 'https://github.com/ReQEnoxus/GazeTracker.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '13.0'
+  s.ios.deployment_target = '13.4'
 
   s.source_files = 'GazeTracker/Classes/**/*'
   

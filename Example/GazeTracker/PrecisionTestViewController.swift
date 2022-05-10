@@ -75,8 +75,8 @@ final class PrecisionTestViewController: UIViewController {
     }
     
     private func initTracker() {
-        self.sceneView.session = tracker.currentSession
-        tracker.startSession(scene: self.sceneView.scene)
+//        self.sceneView.session = tracker.currentSession
+//        tracker.startSession(scene: self.sceneView.scene)
     }
     
     private func measure() {
