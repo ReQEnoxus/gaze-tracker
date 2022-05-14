@@ -14,31 +14,31 @@ struct SlidingAverageableWindow<T: Averageable> {
     
     var contents: [T] {
         get {
-            return self.storage
+            return storage
         }
     }
     
     var average: T? {
         get {
-            return self.storage.average
+            return storage.average
         }
     }
     
     var isFilled: Bool {
         get {
-            return self.storage.count == self.capacity
+            return storage.count == capacity
         }
     }
     
     init(capacity: Int) {
         self.capacity = capacity
-        self.storage = [T]()
+        storage = [T]()
     }
     
     mutating func append(_ element: T) {
-        if self.storage.count >= self.capacity {
-            self.storage = Array(self.storage.dropFirst())
+        if storage.count >= capacity {
+            storage = Array(storage.dropFirst())
         }
-        self.storage.append(element)
+        storage.append(element)
     }
 }

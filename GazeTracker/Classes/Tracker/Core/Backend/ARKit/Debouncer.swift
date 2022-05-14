@@ -15,7 +15,7 @@ class Debouncer: DebouncerProtocol {
     
     var interval: DispatchTimeInterval {
         didSet {
-            self.workItem.cancel()
+            workItem.cancel()
         }
     }
     
@@ -23,17 +23,17 @@ class Debouncer: DebouncerProtocol {
     private var workItem = DispatchWorkItem(block: {})
     
     init(timeInterval: DispatchTimeInterval = .milliseconds(50)) {
-        self.interval = timeInterval
+        interval = timeInterval
     }
     
     func debounce(_ action: @escaping (() -> Void)) {
-        self.workItem.cancel()
-        self.workItem = DispatchWorkItem(block: { action() })
-        self.queue.asyncAfter(deadline: .now() + self.interval, execute: self.workItem)
+        workItem.cancel()
+        workItem = DispatchWorkItem(block: { action() })
+        queue.asyncAfter(deadline: .now() + interval, execute: workItem)
     }
     
     func cancel() {
-        self.workItem.cancel()
+        workItem.cancel()
     }
 }
 

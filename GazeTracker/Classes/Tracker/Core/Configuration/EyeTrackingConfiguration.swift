@@ -15,15 +15,15 @@ public struct EyeTrackingConfiguration<Backend: BackendLayerProtocol, Frontend: 
         var frontendConfig: F.Configuration?
         
         public func backend(config: B.Configuration) -> Self {
-            self.backendLayer = B.init()
-            self.backendConfig = config
+            backendLayer = B.init()
+            backendConfig = config
             
             return self
         }
         
         public func frontend(config: F.Configuration) -> Self {
-            self.frontendLayer = F.init()
-            self.frontendConfig = config
+            frontendLayer = F.init()
+            frontendConfig = config
             
             return self
         }
