@@ -13,7 +13,7 @@ protocol Averageable {
 
 extension Collection where Element: Averageable {
     var average: Element? {
-        return self.reduce(self.first) { partialResult, next in
+        return reduce(first) { partialResult, next in
             return partialResult?.average(with: next)
         }
     }

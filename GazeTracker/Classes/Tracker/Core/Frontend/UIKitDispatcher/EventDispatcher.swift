@@ -93,7 +93,7 @@ extension EventDispatcher: GazeTrackingBackendDelegate {
         getEligibleGestureRecognizers(for: viewCandidate, event: gazeEvent)
             .forEach { $0.processEvent(gazeEvent) }
         
-        if self.configuration.displayGazeLocation {
+        if configuration.displayGazeLocation {
             rootWindow?.bringSubview(toFront: pointerView)
             pointerView.center = event.screenPoint
         }

@@ -16,91 +16,25 @@ public class ARKitTracker: NSObject, BackendLayerProtocol {
     
     public weak var delegate: GazeTrackingBackendDelegate?
     
-    public let currentSession = ARSession()
-    public let scene = SCNScene()
+    // MARK: - Private Properties
     
-    public required override init() {
-        super.init()
-    }
-    
-    // MARK: - Configuration
+    private let currentSession = ARSession()
+    private let scene = SCNScene()
     
     private var configuration = ARKitTrackerConfiguration()
-    
-    // MARK: - Scene
     
     private let faceNode: SCNNode = SCNNode()
     private let debouncer = Debouncer(timeInterval: .milliseconds(20))
 
-    private var eyeLNode: SCNNode = {
-        let geometry = SCNCone(topRadius: 0.002, bottomRadius: 0, height: 2)
-        geometry.radialSegmentCount = 3
-        geometry.firstMaterial?.diffuse.contents = UIColor.systemGreen
-        let node = SCNNode()
-        node.geometry = geometry
-        node.eulerAngles.x = -.pi / 2
-        node.position.z = 0
-        let parentNode = SCNNode()
-        parentNode.addChildNode(node)
-        return parentNode
-    }()
+    private lazy var leftEyeRay: SCNNode = createCylinder(color: .systemGreen)
+    private lazy var rightEyeRay: SCNNode = createCylinder(color: .systemGreen)
+    private lazy var gazeRay: SCNNode = createCylinder(color: .systemRed)
     
-    var eyeRNode: SCNNode = {
-        let geometry = SCNCone(topRadius: 0.002, bottomRadius: 0, height: 2)
-        geometry.radialSegmentCount = 3
-        geometry.firstMaterial?.diffuse.contents = UIColor.systemGreen
-        let node = SCNNode()
-        node.geometry = geometry
-        node.eulerAngles.x = -.pi / 2
-        node.position.z = 0
-        let parentNode = SCNNode()
-        parentNode.addChildNode(node)
-        return parentNode
-    }()
-    
-    
-    var gazeNode: SCNNode = {
-        let geometry = SCNCone(topRadius: 0.002, bottomRadius: 0, height: 2)
-        geometry.radialSegmentCount = 3
-        geometry.firstMaterial?.diffuse.contents = UIColor.red
-        let node = SCNNode()
-        node.geometry = geometry
-        node.eulerAngles.x = .pi / 2
-        node.position.z = 0
-        let parentNode = SCNNode()
-        parentNode.addChildNode(node)
-        return parentNode
-    }()
-    
-    private var virtualPhoneNode: SCNNode = SCNNode()
-    
-    private lazy var virtualScreenNode: SCNNode = {
-        
+    private lazy var screenPlane: SCNNode = {
         let screenGeometry = SCNPlane(width: 1, height: 1)
-//        let screenGeometry = SCNPlane(width: 0.1, height: 0.05)
-        
         let superNode = SCNNode()
         let node = SCNNode(geometry: screenGeometry)
-
-        screenGeometry.firstMaterial?.diffuse.contents = UIColor.systemGray
-
-//        node.position.z = -0.15
-//
-//        let xGeom = SCNPlane(width: 0.05, height: 0.005)
-//        xGeom.firstMaterial?.diffuse.contents = UIColor.red
-//        let xGeomNode = SCNNode(geometry: xGeom)
-//        xGeomNode.position.z = 0.0001
-//        xGeomNode.position.x = 0.025
-//        node.addChildNode(xGeomNode)
-//
-//        let yGeom = SCNPlane(width: 0.025, height: 0.005)
-//        yGeom.firstMaterial?.diffuse.contents = UIColor.green
-//        let yGeomNode = SCNNode(geometry: yGeom)
-//        yGeomNode.position.z = 0.0002
-//        yGeomNode.position.y = 0.0125
-//        yGeomNode.eulerAngles.z = .pi/2
-//        node.addChildNode(yGeomNode)
-//
+        screenGeometry.materials.first?.diffuse.contents = UIColor.systemGray
         superNode.addChildNode(node)
         
         return superNode
@@ -111,19 +45,51 @@ public class ARKitTracker: NSObject, BackendLayerProtocol {
     
     private var gazeTargetNode: SCNNode = SCNNode()
     
-    // MARK: - Cache
-    
     private var smoothingWindow = SlidingAverageableWindow<CGPoint>(capacity: 10)
     
-    // MARK: - Configure
+    // MARK: - Initializers
+    
+    public required override init() {
+        super.init()
+    }
+    
+    // MARK: - Private Methods
+    
+    private func createCylinder(color: UIColor) -> SCNNode {
+        let cylinder = SCNCylinder(radius: 0.001, height: 2)
+        cylinder.materials.first?.diffuse.contents = color
+        let node = SCNNode(geometry: cylinder)
+        node.eulerAngles.x = -.pi / 2
+        
+        let parent = SCNNode()
+        parent.addChildNode(node)
+        
+        return parent
+    }
+    
+    private func setupSceneGraph(scene: SCNScene? = nil) {
+        let scene = scene ?? self.scene
+        scene.rootNode.addChildNode(faceNode)
+        scene.rootNode.addChildNode(screenPlane)
+        faceNode.addChildNode(leftEyeRay)
+        faceNode.addChildNode(rightEyeRay)
+        faceNode.addChildNode(gazeRay)
+        leftEyeRay.addChildNode(lookAtTargetEyeLNode)
+        rightEyeRay.addChildNode(lookAtTargetEyeRNode)
+        gazeRay.addChildNode(gazeTargetNode)
+        
+        lookAtTargetEyeLNode.position.z = 2
+        lookAtTargetEyeRNode.position.z = 2
+        gazeTargetNode.position.z = 1
+    }
+    
+    // MARK: - Public Methods
     
     public func configure(with configuration: ARKitTrackerConfiguration) {
         self.configuration = configuration
         smoothingWindow = SlidingAverageableWindow<CGPoint>(capacity: configuration.blinkFrameOffset + 1)
-        configuration.sceneView?.session = self.currentSession
+        configuration.sceneView?.session = currentSession
     }
-    
-    // MARK: - Interaction
     
     public func startTracking() {
         guard ARFaceTrackingConfiguration.isSupported else {
@@ -131,43 +97,23 @@ public class ARKitTracker: NSObject, BackendLayerProtocol {
             return
         }
 
-        // Configure and start the ARSession to begin face tracking.
         let configuration = ARFaceTrackingConfiguration()
         configuration.maximumNumberOfTrackedFaces = 1
-//        configuration.worldAlignment = .gravity
         
-        self.setupSceneGraph(scene: self.configuration.sceneView?.scene)
+        setupSceneGraph(scene: self.configuration.sceneView?.scene)
 
-        self.currentSession.delegate = self
-        self.currentSession.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        currentSession.delegate = self
+        currentSession.run(
+            configuration,
+            options: [
+                .resetTracking,
+                .removeExistingAnchors
+            ]
+        )
     }
     
     public func endTracking() {
         currentSession.pause()
-    }
-    
-    // MARK: - Scene
-    
-    private func setupSceneGraph(scene: SCNScene? = nil) {
-        let scene = scene ?? self.scene
-        let pointOfView = scene.rootNode
-        let sphere = SCNSphere(radius: 0.10)
-        sphere.firstMaterial?.diffuse.contents = UIColor.gray
-        let sphereNode = SCNNode(geometry: sphere)
-        pointOfView.addChildNode(sphereNode)
-        scene.rootNode.addChildNode(faceNode)
-        pointOfView.addChildNode(virtualPhoneNode)
-        self.virtualPhoneNode.addChildNode(virtualScreenNode)
-        self.faceNode.addChildNode(eyeLNode)
-        self.faceNode.addChildNode(eyeRNode)
-        self.faceNode.addChildNode(gazeNode)
-        self.eyeLNode.addChildNode(lookAtTargetEyeLNode)
-        self.eyeRNode.addChildNode(lookAtTargetEyeRNode)
-        self.gazeNode.addChildNode(gazeTargetNode)
-        
-        self.lookAtTargetEyeLNode.position.z = 2
-        self.lookAtTargetEyeRNode.position.z = 2
-        self.gazeTargetNode.position.z = 1
     }
 }
 
@@ -177,31 +123,33 @@ extension ARKitTracker: ARSCNViewDelegate, ARSessionDelegate {
         guard let anchor = frame.anchors.first as? ARFaceAnchor else { return }
 
         faceNode.simdTransform = anchor.transform
-        eyeLNode.simdTransform = anchor.leftEyeTransform
-        eyeRNode.simdTransform = anchor.rightEyeTransform
-        gazeNode.simdTransform = anchor.leftEyeTransform.average(with: anchor.rightEyeTransform)
+        leftEyeRay.simdTransform = anchor.leftEyeTransform
+        rightEyeRay.simdTransform = anchor.rightEyeTransform
+        gazeRay.simdTransform = anchor.leftEyeTransform.average(with: anchor.rightEyeTransform)
         
-        self.virtualScreenNode.simdTransform = frame.camera.transform
-        
-        // intersection of the ray with viewpoint plane
-        // average gaze method
-        let hitTestResults = self.virtualScreenNode.hitTestWithSegment(from: self.gazeTargetNode.worldPosition, to: self.gazeNode.worldPosition, options: nil)
+        screenPlane.simdTransform = frame.camera.transform
+
+        let hitTestResults = screenPlane.hitTestWithSegment(
+            from: gazeTargetNode.worldPosition,
+            to: gazeRay.worldPosition,
+            options: nil
+        )
         guard let hitTestCoordinates = hitTestResults.last?.localCoordinates else { return }
         
-        var smoothPoint = self.mapToScreenCoordinates(CGPoint(x: CGFloat(hitTestCoordinates.x), y: CGFloat(hitTestCoordinates.y)))
-        self.smoothingWindow.append(smoothPoint)
+        let smoothPoint = configuration.coordinateMapper.mapCoordinates(
+            from: CGPoint(
+                x: CGFloat(hitTestCoordinates.x),
+                y: CGFloat(hitTestCoordinates.y)
+            )
+        )
         
-        // TODO: smoothing
-//        if self.smoothingWindow.isFilled, let average = self.smoothingWindow.average {
-//            smoothPoint = average
-//        }
+        smoothingWindow.append(smoothPoint)
         
-        // Calculate distance of the eyes to the camera
-        let distance = (self.gazeNode.worldPosition - SCNVector3Zero).length()
+        let distance = (gazeRay.worldPosition - SCNVector3Zero).length()
         
-        self.processBlendShapes(anchor.blendShapes, for: self.smoothingWindow, dist: distance)
+        processBlendShapes(anchor.blendShapes, for: smoothingWindow, dist: distance)
         
-        self.delegate?.tracker(
+        delegate?.tracker(
             didEmit: GazeTrackingEvent(
                 name: .gazePositionChanged,
                 screenPoint: smoothPoint,
@@ -218,11 +166,11 @@ extension ARKitTracker: ARSCNViewDelegate, ARSessionDelegate {
         var leftEyeBlinked = false
         var rightEyeBlinked = false
         
-        if let leftProb = leftEyeBlinkProbability, leftProb.floatValue > self.configuration.leftEyeBlinkThreshold {
+        if let leftProb = leftEyeBlinkProbability, leftProb.floatValue > configuration.leftEyeBlinkThreshold {
             leftEyeBlinked = true
         }
         
-        if let rightProb = rightEyeBlinkProbabiltity, rightProb.floatValue > self.configuration.rightEyeBlinkThreshold {
+        if let rightProb = rightEyeBlinkProbabiltity, rightProb.floatValue > configuration.rightEyeBlinkThreshold {
             rightEyeBlinked = true
         }
         
@@ -239,11 +187,11 @@ extension ARKitTracker: ARSCNViewDelegate, ARSessionDelegate {
         }
         
         var point = window.contents.last ?? .zero
-        if self.configuration.blinkFrameOffset < window.contents.count {
-            point = window.contents[window.contents.endIndex - self.configuration.blinkFrameOffset]
+        if configuration.blinkFrameOffset < window.contents.count {
+            point = window.contents[window.contents.endIndex - configuration.blinkFrameOffset]
         }
         
-        self.debouncer.debounce { [weak self] in
+        debouncer.debounce { [weak self] in
             guard let self = self else { return }
             
             self.delegate?.tracker(
@@ -255,63 +203,5 @@ extension ARKitTracker: ARSCNViewDelegate, ARSessionDelegate {
                 )
             )
         }
-    }
-    
-    private func mapToScreenCoordinates(_ point: CGPoint) -> CGPoint {
-        switch UIDevice.current.orientation {
-        case .portrait, .faceUp:
-            return self.portraitCoordinateMapping(point)
-        case .landscapeRight:
-            return self.landscapeRightCoordinateMapping(point)
-        case .portraitUpsideDown:
-            return self.portraitUpsideDownCoordinateMapping(point)
-        case .landscapeLeft:
-            return self.landscapeLeftCoordinateMapping(point)
-        default:
-            return self.portraitCoordinateMapping(point)
-        }
-    }
-    
-    private func portraitCoordinateMapping(_ point: CGPoint) -> CGPoint {
-        // transform hittest result to screen fraction
-        let xPartial = point.x / (Device.current.realScreenSize.width / 2)
-        let yPartial = point.y / (Device.current.realScreenSize.height / 2)
-
-        let eyeLookAtPositionX = xPartial * Device.current.pointScreenSize.width + Device.current.pointScreenSize.width * Device.current.leadingFrontalCameraOffset
-        let eyeLookAtPositionY = yPartial * Device.current.pointScreenSize.height
-
-        return CGPoint(x: eyeLookAtPositionX, y: -eyeLookAtPositionY)
-    }
-    
-    private func landscapeLeftCoordinateMapping(_ point: CGPoint) -> CGPoint {
-        let xPartial = point.x / (Device.current.realScreenSize.height / 2)
-        let yPartial = point.y / (Device.current.realScreenSize.width / 2)
-        
-        let eyeLookAtPositionX = xPartial * Device.current.pointScreenSize.width
-        let eyeLookAtPositionY = yPartial * Device.current.pointScreenSize.height - Device.current.pointScreenSize.height * Device.current.leadingFrontalCameraOffset
-        
-        return CGPoint(x: eyeLookAtPositionX, y: -eyeLookAtPositionY)
-    }
-    
-    private func landscapeRightCoordinateMapping(_ point: CGPoint) -> CGPoint {
-        let xPartial = point.x / (Device.current.realScreenSize.height / 2)
-        let yPartial = point.y / (Device.current.realScreenSize.width / 2)
-        
-        let eyeLookAtPositionX = xPartial * Device.current.pointScreenSize.width + Device.current.pointScreenSize.width
-        let eyeLookAtPositionY = yPartial * Device.current.pointScreenSize.height - Device.current.pointScreenSize.height * (1 - Device.current.leadingFrontalCameraOffset)
-        
-        return CGPoint(x: eyeLookAtPositionX, y: -eyeLookAtPositionY)
-    }
-    
-    private func portraitUpsideDownCoordinateMapping(_ point: CGPoint) -> CGPoint {
-        // TODO: 
-        // transform hittest result to screen fraction
-        let xPartial = point.x / (Device.current.realScreenSize.width / 2)
-        let yPartial = point.y / (Device.current.realScreenSize.height / 2)
-
-        let eyeLookAtPositionX = xPartial * Device.current.pointScreenSize.width + (Device.current.pointScreenSize.width * 1 - Device.current.leadingFrontalCameraOffset)
-        let eyeLookAtPositionY = yPartial * Device.current.pointScreenSize.height + Device.current.pointScreenSize.height
-
-        return CGPoint(x: eyeLookAtPositionX, y: -eyeLookAtPositionY)
     }
 }

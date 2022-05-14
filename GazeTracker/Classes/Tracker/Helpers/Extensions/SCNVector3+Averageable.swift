@@ -9,6 +9,6 @@ import SceneKit
 
 extension SCNVector3: Averageable {
     func average(with other: SCNVector3) -> SCNVector3 {
-        return SCNVector3((self.x + other.x) / 2, (self.y + other.y) / 2, (self.z + other.z) / 2)
+        return SCNVector3((x + other.x) / 2, (y + other.y) / 2, (z + other.z) / 2)
     }
 }

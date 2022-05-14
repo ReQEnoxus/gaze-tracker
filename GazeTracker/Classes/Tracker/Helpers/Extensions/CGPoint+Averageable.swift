@@ -9,6 +9,6 @@ import CoreGraphics
 
 extension CGPoint: Averageable {
     func average(with other: CGPoint) -> CGPoint {
-        return CGPoint(x: (self.x + other.x) / 2, y: (self.y + other.y) / 2)
+        return CGPoint(x: (x + other.x) / 2, y: (y + other.y) / 2)
     }
 }

@@ -10,9 +10,9 @@ import DeviceKit
 extension Device {
     /// real screen size in meters
     public var realScreenSize: (width: Double, height: Double) {
-        let diagonalFraction = (self.screenRatio.height.squared + self.screenRatio.width.squared).squareRoot()
-        let widthInches = self.screenRatio.width / diagonalFraction * self.diagonal
-        let heightInches = self.screenRatio.height / diagonalFraction * self.diagonal
+        let diagonalFraction = (screenRatio.height.squared + screenRatio.width.squared).squareRoot()
+        let widthInches = screenRatio.width / diagonalFraction * diagonal
+        let heightInches = screenRatio.height / diagonalFraction * diagonal
         
         return (
             width: inchesToMeters(from: widthInches),
