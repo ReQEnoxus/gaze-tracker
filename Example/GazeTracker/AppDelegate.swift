@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GazeTracker
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

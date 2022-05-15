@@ -8,7 +8,6 @@
 
 import ARKit
 import UIKit
-import GazeTracker
 import DeviceKit
 
 final class PrecisionTestViewController: UIViewController {

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import UIKit.UIGestureRecognizerSubclass
 
 class GestureRecognizerTestViewController: UIViewController {
     private lazy var middleButton: UIButton = {
@@ -45,17 +46,51 @@ class GestureRecognizerTestViewController: UIViewController {
     }
     
     private func setupGestures() {
+        middleButton.addGestureRecognizer(MyGesture(target: self, action: #selector(self.customGesture)))
+        firstGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleFirstGesture))
+        firstGestureRecognizer.name = "FirstTap"
+        firstGestureRecognizer.numberOfTapsRequired = 2
+        middleButton.addGestureRecognizer(firstGestureRecognizer)
+        
+        
         secondGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleSecondGesture))
-        middleButton.addGestureRecognizer(secondGestureRecognizer)
+//        middleButton.addGestureRecognizer(secondGestureRecognizer)
+        secondGestureRecognizer.name = "SecondTap"
 //        secondGestureRecognizer.numberOfTapsRequired = 2
         
-        firstGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleFirstGesture))
-//        firstGestureRecognizer.numberOfTapsRequired = 2
-        middleButton.addGestureRecognizer(firstGestureRecognizer)
         
         thirdGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleThirdGesture))
 //        thirdGestureRecognizer.numberOfTapsRequired = 3
-        middleButton.addGestureRecognizer(thirdGestureRecognizer)
+//        middleButton.addGestureRecognizer(thirdGestureRecognizer)
+        
+        
+        
+        var gestureRecognizers = middleButton.gestureRecognizers ?? []
+        
+        // Getting all recognizers from view hierarchy
+        var currentView: UIView? = middleButton
+        while let superView = currentView?.superview {
+            gestureRecognizers.append(
+                contentsOf: superView.gestureRecognizers ?? []
+            )
+            currentView = currentView?.superview
+        }
+        
+        print("log_allRecognizerWithoutWindow: \(gestureRecognizers)")
+        
+        let window = UIApplication
+            .shared
+            .connectedScenes
+            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+            .first
+        
+        window?.gestureRecognizers?.enumerated().forEach {
+            $1.name = "System\($0)"
+        }
+        
+        gestureRecognizers.append(contentsOf: window?.gestureRecognizers ?? [])
+        
+        print("log_allRecognizerWithWindow: \(gestureRecognizers)")
         
         [
             firstGestureRecognizer,
@@ -81,9 +116,9 @@ class GestureRecognizerTestViewController: UIViewController {
             )
         }
         
-        secondGestureRecognizer.delegate = self
-        firstGestureRecognizer.delegate = self
-        thirdGestureRecognizer.delegate = self
+//        secondGestureRecognizer.delegate = self
+//        firstGestureRecognizer.delegate = self
+//        thirdGestureRecognizer.delegate = self
     }
     
     @objc private func handleFirstGesture(_ gestureRecognizer: UIGestureRecognizer) {
@@ -108,6 +143,10 @@ class GestureRecognizerTestViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.animateViewOut(self.middleButton, type: 3)
         }
+    }
+    
+    @objc private func customGesture() {
+        
     }
     
     private func animateViewIn(_ view: UIView?, type: Int = 1) {
@@ -143,15 +182,32 @@ class GestureRecognizerTestViewController: UIViewController {
 
 extension GestureRecognizerTestViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        print("log_srf_\(gestureRecognizer.name)-\(otherGestureRecognizer.name)")
         switch (gestureRecognizer, otherGestureRecognizer) {
+        case (secondGestureRecognizer, firstGestureRecognizer):
+            return true
         case (firstGestureRecognizer, secondGestureRecognizer):
             return true
-        case (secondGestureRecognizer, thirdGestureRecognizer):
+//        case (thirdGestureRecognizer, secondGestureRecognizer):
+//            return true
+//        case (thirdGestureRecognizer, firstGestureRecognizer):
+//            return true
+        default:
+            return false
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        print("log_sbrtf_\(gestureRecognizer.name)-\(otherGestureRecognizer.name)")
+        switch (gestureRecognizer, otherGestureRecognizer) {
+        case (secondGestureRecognizer, firstGestureRecognizer):
             return true
-        case (thirdGestureRecognizer, secondGestureRecognizer):
+        case (firstGestureRecognizer, secondGestureRecognizer):
             return true
-        case (thirdGestureRecognizer, firstGestureRecognizer):
-            return true
+//        case (thirdGestureRecognizer, secondGestureRecognizer):
+//            return true
+//        case (thirdGestureRecognizer, firstGestureRecognizer):
+//            return true
         default:
             return false
         }
@@ -172,4 +228,12 @@ extension GestureRecognizerTestViewController: UIGestureRecognizerDelegate {
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 //        return otherGestureRecognizer == secondGestureRecognizer
 //    }
+}
+
+class MyGesture: UIGestureRecognizer {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        state = .ended
+        state = .cancelled
+        print("log_tbg")
+    }
 }
