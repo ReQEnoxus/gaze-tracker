@@ -9,7 +9,7 @@ import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
 /// Discrete gesture recognizer that detects continous gaze event
-open class LongGazeGestureRecognizer: EyeTrackerGestureRecognizer {
+open class LongGazeGestureRecognizer: BaseEyeGestureRecognizer {
     private enum State {
         case idle
         case tracking

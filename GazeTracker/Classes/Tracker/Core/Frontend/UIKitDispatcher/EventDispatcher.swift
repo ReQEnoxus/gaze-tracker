@@ -8,8 +8,11 @@
 import Foundation
 import UIKit
 
+public typealias EyeGestureRecognizer = UIGestureRecognizer & EyeTrackerGestureProtocol
+
 open class EventDispatcher: FrontendLayerProtocol {
     private var rootWindow: UIWindow?
+    private var executionSystems: Set<GestureExecutionSystem> = []
     
     private var pointerView: UIView = {
         let view = UIView(frame: .init(origin: .zero, size: CGSize(width: 10, height: 10)))
@@ -51,38 +54,57 @@ open class EventDispatcher: FrontendLayerProtocol {
         return rootWindow?.hitTest(event.underlyingEvent.screenPoint, with: event)
     }
     
-    open func getEligibleGestureRecognizers(for view: UIView?, event: GazeEvent) -> [EyeTrackerGestureProtocol] {
-        guard let gestureRecognizers = view?.gestureRecognizers?.compactMap({ $0 as? (EyeTrackerGestureProtocol & UIGestureRecognizer) }) else { return [] }
-
-        var eligibleGestures: [UIGestureRecognizer] = []
-        var unvisited: Set<UIGestureRecognizer> = Set(gestureRecognizers)
+    open func getEligibleGestureRecognizers(for view: UIView?, event: GazeEvent) -> [EyeGestureRecognizer] {
+        // Getting all recognizers from current view
+        var gestureRecognizers = view?.gestureRecognizers?.compactMap({ $0 as? EyeGestureRecognizer }) ?? []
         
-        // find the first (actually, last, to match UIKit logic for regular gestures) gesture recognizer that will process given event
-        
-        if let firstRecognizer = gestureRecognizers.last(where: { $0.shouldReceive(event) }) {
-            eligibleGestures.append(firstRecognizer)
-            unvisited.remove(firstRecognizer)
-        } else {
-            // if no gesture is willing to consume event, there is no need to dispatch it further
-            return []
+        // Getting all recognizers from view hierarchy
+        var currentView = view
+        while let superView = currentView?.superview {
+            gestureRecognizers.append(
+                contentsOf: superView.gestureRecognizers?.compactMap({ $0 as? EyeGestureRecognizer }) ?? []
+            )
+            currentView = currentView?.superview
         }
         
-        // now we need to determine which gesture recognizers also need to get this event according to delegate setup
+        // Finally, getting all recognizers from window
+        gestureRecognizers.append(
+            contentsOf: rootWindow?.gestureRecognizers?.compactMap({ $0 as? EyeGestureRecognizer }) ?? []
+        )
         
-        // for each of currently found eligible recognizers (it's just one at this point), check every unvisited gesture and, if their delegate setup suggests simultaneous recognition, add them to the list of eligible gesture recognizers. Time complexity - O(n^2)
-        var index = Int.zero
-        while index < eligibleGestures.count {
-            unvisited.forEach { recognizer in
-                if eligibleGestures[index].delegate?.gestureRecognizer?(eligibleGestures[index], shouldRecognizeSimultaneouslyWith: recognizer) == true ||
-                    recognizer.delegate?.gestureRecognizer?(recognizer, shouldRecognizeSimultaneouslyWith: eligibleGestures[index]) == true {
-                    eligibleGestures.append(recognizer)
-                    unvisited.remove(recognizer)
-                }
-            }
-            index += 1
-        }
+        guard !gestureRecognizers.isEmpty else { return [] }
 
-        return eligibleGestures.compactMap { $0 as? EyeTrackerGestureProtocol }
+//        var eligibleGestures: [UIGestureRecognizer] = []
+//        var unvisited: Set<UIGestureRecognizer> = Set(gestureRecognizers)
+//
+//        // find the first (actually, last, to match UIKit logic for regular gestures) gesture recognizer that will process given event
+//
+//        if let firstRecognizer = gestureRecognizers.last(where: { $0.shouldReceive(event) }) {
+//            eligibleGestures.append(firstRecognizer)
+//            unvisited.remove(firstRecognizer)
+//        } else {
+//            // if no gesture is willing to consume event, there is no need to dispatch it further
+//            return []
+//        }
+//
+//        // now we need to determine which gesture recognizers also need to get this event according to delegate setup
+//
+//        // for each of currently found eligible recognizers (it's just one at this point), check every unvisited gesture and, if their delegate setup suggests simultaneous recognition, add them to the list of eligible gesture recognizers. Time complexity - O(n^2)
+//        var index = Int.zero
+//        while index < eligibleGestures.count {
+//            unvisited.forEach { recognizer in
+//                if eligibleGestures[index].delegate?.gestureRecognizer?(eligibleGestures[index], shouldRecognizeSimultaneouslyWith: recognizer) == true ||
+//                    recognizer.delegate?.gestureRecognizer?(recognizer, shouldRecognizeSimultaneouslyWith: eligibleGestures[index]) == true {
+//                    eligibleGestures.append(recognizer)
+//                    unvisited.remove(recognizer)
+//                }
+//            }
+//            index += 1
+//        }
+
+//        return eligibleGestures.compactMap { $0 as? EyeGestureRecognizer }
+        
+        return gestureRecognizers.filter { $0.shouldReceive(event) }
     }
 }
 
@@ -90,12 +112,21 @@ extension EventDispatcher: GazeTrackingBackendDelegate {
     open func tracker(didEmit event: GazeTrackingEvent) {
         let gazeEvent = GazeEvent(underlyingEvent: event)
         let viewCandidate = getView(for: gazeEvent)
-        getEligibleGestureRecognizers(for: viewCandidate, event: gazeEvent)
-            .forEach { $0.processEvent(gazeEvent) }
+        let gestureRecognizers = getEligibleGestureRecognizers(for: viewCandidate, event: gazeEvent)
+        let system = GestureExecutionSystem(eligibleRecognizers: gestureRecognizers, delegate: self)
+        executionSystems.insert(system)
+        system.dispatch(event: gazeEvent)
         
         if configuration.displayGazeLocation {
             rootWindow?.bringSubview(toFront: pointerView)
             pointerView.center = event.screenPoint
         }
+    }
+}
+
+extension EventDispatcher: GestureExecutionSystemDelegate {
+    public func didFinishExecuting(_ system: GestureExecutionSystem) {
+        print("log_didFinish of \(system)")
+        executionSystems.remove(system)
     }
 }

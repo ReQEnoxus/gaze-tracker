@@ -8,7 +8,7 @@
 import Foundation
 
 /// Discrete gesture recognizer that detects a certain number of blinks
-open class BlinkGestureRecognizer: EyeTrackerGestureRecognizer {
+open class BlinkGestureRecognizer: BaseEyeGestureRecognizer {
     public enum BlinkType {
         case leftEye
         case rightEye
@@ -36,6 +36,7 @@ open class BlinkGestureRecognizer: EyeTrackerGestureRecognizer {
             state = .recognized
         } else {
             debouncer.debounce { [weak self] in
+                print("log_failed")
                 self?.state = .failed
             }
         }

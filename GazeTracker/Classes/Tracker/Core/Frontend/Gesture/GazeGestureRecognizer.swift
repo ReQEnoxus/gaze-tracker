@@ -9,7 +9,7 @@ import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
 /// Continous gesture recognizer that detects gaze position change
-open class GazeGestureRecognizer: EyeTrackerGestureRecognizer {
+open class GazeGestureRecognizer: BaseEyeGestureRecognizer {
     
     private var currentEvent: GazeTrackingEvent?
     private let debouncer = Debouncer(timeInterval: .milliseconds(60))

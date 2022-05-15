@@ -66,6 +66,7 @@ class ViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("TOP BUTTON", for: .normal)
         button.addGestureRecognizer(GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture(_:))))
+        button.addGestureRecognizer(GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture2(_:))))
         let blinkGesture = BlinkGestureRecognizer(target: self, action: #selector(self.handleBlinkGesture(_:)))
         blinkGesture.blinkType = .leftEye
         button.addGestureRecognizer(blinkGesture)
@@ -74,6 +75,9 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private var doubleBlinkRecognizer: BlinkGestureRecognizer!
+    private var secondDoubleBlinkRecognizer: BlinkGestureRecognizer!
+    
     private lazy var middleButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .systemBlue
@@ -81,10 +85,30 @@ class ViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("MIDDLE BUTTON", for: .normal)
-        button.addGestureRecognizer(GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture(_:))))
+//        button.addGestureRecognizer(GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture(_:))))
         let blinkGesture = BlinkGestureRecognizer(target: self, action: #selector(self.handleBlinkGesture(_:)))
-        blinkGesture.blinkType = .rightEye
+        blinkGesture.name = "SingleBlink"
+        blinkGesture.blinkType = .bothEyes
+        blinkGesture.delegate = self
+        
+        let blinkGesture2 = BlinkGestureRecognizer(target: self, action: #selector(self.handleBlinkGesture(_:)))
+        blinkGesture2.name = "DoubleBlink"
+        blinkGesture2.blinkType = .bothEyes
+        blinkGesture2.blinkCount = 2
+        blinkGesture2.maximumBlinkInterval = .milliseconds(600)
+        
+        let blinkGesture3 = BlinkGestureRecognizer(target: self, action: #selector(self.handleBlinkGesture(_:)))
+        blinkGesture3.name = "SecondDoubleBlink"
+        blinkGesture3.blinkType = .bothEyes
+        blinkGesture3.blinkCount = 2
+        blinkGesture3.maximumBlinkInterval = .milliseconds(600)
+        
+        self.doubleBlinkRecognizer = blinkGesture2
+        self.secondDoubleBlinkRecognizer = blinkGesture3
+        
         button.addGestureRecognizer(blinkGesture)
+        button.addGestureRecognizer(blinkGesture2)
+        button.addGestureRecognizer(blinkGesture3)
         button.alpha = 0.5
         
         return button
@@ -139,7 +163,7 @@ class ViewController: UIViewController {
         self.view.addSubview(self.sceneView)
         self.view.addSubview(self.topButton)
         self.view.addSubview(self.middleButton)
-        self.view.addSubview(self.bottomButton)
+//        self.view.addSubview(self.bottomButton)
 //        self.view.addSubview(self.predictedPointLabel)
 //        self.view.addSubview(self.predictedDistanceLabel)
 //        self.dots.forEach { self.view.addSubview($0) }
@@ -170,10 +194,10 @@ class ViewController: UIViewController {
             self.middleButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
             self.middleButton.heightAnchor.constraint(equalToConstant: 90),
             
-            self.bottomButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 200),
-            self.bottomButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            self.bottomButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
-            self.bottomButton.heightAnchor.constraint(equalToConstant: 90),
+//            self.bottomButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 200),
+//            self.bottomButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
+//            self.bottomButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
+//            self.bottomButton.heightAnchor.constraint(equalToConstant: 90),
             
 //            self.predictedPointLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8),
 //            self.predictedPointLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -302,7 +326,11 @@ class ViewController: UIViewController {
 
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return otherGestureRecognizer is GazeGestureRecognizer
+        return true
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return otherGestureRecognizer == doubleBlinkRecognizer || otherGestureRecognizer == secondDoubleBlinkRecognizer
     }
 }
 
