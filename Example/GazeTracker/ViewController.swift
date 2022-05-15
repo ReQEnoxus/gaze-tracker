@@ -8,7 +8,6 @@
 
 import UIKit
 import ARKit
-import GazeTracker
 import NotificationBannerSwift
 
 class ViewController: UIViewController {
@@ -68,6 +67,7 @@ class ViewController: UIViewController {
         button.addGestureRecognizer(GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture(_:))))
         button.addGestureRecognizer(GazeGestureRecognizer(target: self, action: #selector(self.handleGazeGesture2(_:))))
         let blinkGesture = BlinkGestureRecognizer(target: self, action: #selector(self.handleBlinkGesture(_:)))
+        button.gestureRecognizers?.first(where: { $0 is GazeGestureRecognizer })?.delegate = self
         blinkGesture.blinkType = .leftEye
         button.addGestureRecognizer(blinkGesture)
         button.alpha = 0.5
@@ -326,7 +326,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return false
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {

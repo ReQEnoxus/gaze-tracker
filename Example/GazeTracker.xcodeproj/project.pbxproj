@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,44 +11,78 @@
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		63C0D8ECD9CEB2BCE0E299C9 /* Pods_GazeTracker_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9977F9264ECC80ED604AE680 /* Pods_GazeTracker_Tests.framework */; };
-		695363623740B5B75EFDA7B3 /* Pods_GazeTracker_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5F680D40A28E3CB5E2BC86 /* Pods_GazeTracker_Example.framework */; };
 		732EA7D52829139000F2C642 /* GestureRecognitionTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732EA7D42829139000F2C642 /* GestureRecognitionTesting.swift */; };
+		732EA83928315AD100F2C642 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA83828315AD100F2C642 /* DeviceKit */; };
+		732EA83C28315B1700F2C642 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA83B28315B1700F2C642 /* NotificationBannerSwift */; };
+		732EA83F28315C2700F2C642 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA83E28315C2700F2C642 /* Collections */; };
+		732EA84128315C2700F2C642 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA84028315C2700F2C642 /* DequeModule */; };
+		732EA84328315C2700F2C642 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA84228315C2700F2C642 /* OrderedCollections */; };
 		73A2FE2727C260F0008F1D4B /* PrecisionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A2FE2627C260F0008F1D4B /* PrecisionTestViewController.swift */; };
+		73D7E9632831650B001DE6DD /* EyeTrackingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9352831650B001DE6DD /* EyeTrackingConfiguration.swift */; };
+		73D7E9642831650B001DE6DD /* EyeTrackingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9362831650B001DE6DD /* EyeTrackingSystem.swift */; };
+		73D7E9652831650B001DE6DD /* BackendLayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9392831650B001DE6DD /* BackendLayerProtocol.swift */; };
+		73D7E9662831650B001DE6DD /* ConfigurableLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E93B2831650B001DE6DD /* ConfigurableLayer.swift */; };
+		73D7E9672831650B001DE6DD /* FrontendLayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E93D2831650B001DE6DD /* FrontendLayerProtocol.swift */; };
+		73D7E9682831650B001DE6DD /* GestureExecutionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9402831650B001DE6DD /* GestureExecutionSystem.swift */; };
+		73D7E9692831650B001DE6DD /* EventDispatcherConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9412831650B001DE6DD /* EventDispatcherConfiguration.swift */; };
+		73D7E96A2831650B001DE6DD /* GazeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9432831650B001DE6DD /* GazeEvent.swift */; };
+		73D7E96B2831650B001DE6DD /* EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9442831650B001DE6DD /* EventDispatcher.swift */; };
+		73D7E96C2831650B001DE6DD /* GazeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9462831650B001DE6DD /* GazeGestureRecognizer.swift */; };
+		73D7E96D2831650B001DE6DD /* BlinkGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9472831650B001DE6DD /* BlinkGestureRecognizer.swift */; };
+		73D7E96E2831650B001DE6DD /* LongGazeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9482831650B001DE6DD /* LongGazeGestureRecognizer.swift */; };
+		73D7E96F2831650B001DE6DD /* BaseEyeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9492831650B001DE6DD /* BaseEyeGestureRecognizer.swift */; };
+		73D7E9702831650B001DE6DD /* GazeTrackingBackendDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E94C2831650B001DE6DD /* GazeTrackingBackendDelegate.swift */; };
+		73D7E9712831650B001DE6DD /* GazeTrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E94E2831650B001DE6DD /* GazeTrackingEvent.swift */; };
+		73D7E9722831650B001DE6DD /* CoordinateMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9502831650B001DE6DD /* CoordinateMapper.swift */; };
+		73D7E9732831650B001DE6DD /* ARKitTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9512831650B001DE6DD /* ARKitTracker.swift */; };
+		73D7E9742831650B001DE6DD /* ARKitTrackerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9522831650B001DE6DD /* ARKitTrackerConfiguration.swift */; };
+		73D7E9752831650B001DE6DD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9542831650B001DE6DD /* Debouncer.swift */; };
+		73D7E9762831650B001DE6DD /* SlidingAverageableWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9572831650B001DE6DD /* SlidingAverageableWindow.swift */; };
+		73D7E9772831650B001DE6DD /* Averageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E95A2831650B001DE6DD /* Averageable.swift */; };
+		73D7E9782831650B001DE6DD /* Device+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E95D2831650B001DE6DD /* Device+Extensions.swift */; };
+		73D7E9792831650B001DE6DD /* Publishers+ZipMany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E95E2831650B001DE6DD /* Publishers+ZipMany.swift */; };
+		73D7E97A2831650B001DE6DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E95F2831650B001DE6DD /* Extensions.swift */; };
+		73D7E97B2831650B001DE6DD /* simd_float4x4+Averageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9602831650B001DE6DD /* simd_float4x4+Averageable.swift */; };
+		73D7E97C2831650B001DE6DD /* CGPoint+Averageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9612831650B001DE6DD /* CGPoint+Averageable.swift */; };
+		73D7E97D2831650B001DE6DD /* SCNVector3+Averageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9622831650B001DE6DD /* SCNVector3+Averageable.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
-			remoteInfo = GazeTracker;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		45592A854B0E5CE130F8499D /* Pods-GazeTracker_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GazeTracker_Example.debug.xcconfig"; path = "Target Support Files/Pods-GazeTracker_Example/Pods-GazeTracker_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* GazeTracker_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GazeTracker_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		607FACE51AFB9204008FA782 /* GazeTracker_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GazeTracker_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		732EA7D42829139000F2C642 /* GestureRecognitionTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognitionTesting.swift; sourceTree = "<group>"; };
 		73A2FE2627C260F0008F1D4B /* PrecisionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecisionTestViewController.swift; sourceTree = "<group>"; };
-		8DA11BE0E3407707FD96B34D /* Pods-GazeTracker_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GazeTracker_Example.release.xcconfig"; path = "Target Support Files/Pods-GazeTracker_Example/Pods-GazeTracker_Example.release.xcconfig"; sourceTree = "<group>"; };
-		908D0759FEE2FEF49120B277 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		95A83F0198897CFE5A28625C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		9977F9264ECC80ED604AE680 /* Pods_GazeTracker_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GazeTracker_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF3E1F7B616BC9DF79830131 /* Pods-GazeTracker_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GazeTracker_Tests.release.xcconfig"; path = "Target Support Files/Pods-GazeTracker_Tests/Pods-GazeTracker_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		BC5F680D40A28E3CB5E2BC86 /* Pods_GazeTracker_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GazeTracker_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FDAD3602F0F1AEAEF1ADECA9 /* Pods-GazeTracker_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GazeTracker_Tests.debug.xcconfig"; path = "Target Support Files/Pods-GazeTracker_Tests/Pods-GazeTracker_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		FE62FD80459047D6ACA86966 /* GazeTracker.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = GazeTracker.podspec; path = ../GazeTracker.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		73D7E9352831650B001DE6DD /* EyeTrackingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EyeTrackingConfiguration.swift; sourceTree = "<group>"; };
+		73D7E9362831650B001DE6DD /* EyeTrackingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EyeTrackingSystem.swift; sourceTree = "<group>"; };
+		73D7E9392831650B001DE6DD /* BackendLayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendLayerProtocol.swift; sourceTree = "<group>"; };
+		73D7E93B2831650B001DE6DD /* ConfigurableLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableLayer.swift; sourceTree = "<group>"; };
+		73D7E93D2831650B001DE6DD /* FrontendLayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendLayerProtocol.swift; sourceTree = "<group>"; };
+		73D7E9402831650B001DE6DD /* GestureExecutionSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureExecutionSystem.swift; sourceTree = "<group>"; };
+		73D7E9412831650B001DE6DD /* EventDispatcherConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDispatcherConfiguration.swift; sourceTree = "<group>"; };
+		73D7E9432831650B001DE6DD /* GazeEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GazeEvent.swift; sourceTree = "<group>"; };
+		73D7E9442831650B001DE6DD /* EventDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDispatcher.swift; sourceTree = "<group>"; };
+		73D7E9462831650B001DE6DD /* GazeGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GazeGestureRecognizer.swift; sourceTree = "<group>"; };
+		73D7E9472831650B001DE6DD /* BlinkGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlinkGestureRecognizer.swift; sourceTree = "<group>"; };
+		73D7E9482831650B001DE6DD /* LongGazeGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongGazeGestureRecognizer.swift; sourceTree = "<group>"; };
+		73D7E9492831650B001DE6DD /* BaseEyeGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEyeGestureRecognizer.swift; sourceTree = "<group>"; };
+		73D7E94C2831650B001DE6DD /* GazeTrackingBackendDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GazeTrackingBackendDelegate.swift; sourceTree = "<group>"; };
+		73D7E94E2831650B001DE6DD /* GazeTrackingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GazeTrackingEvent.swift; sourceTree = "<group>"; };
+		73D7E9502831650B001DE6DD /* CoordinateMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateMapper.swift; sourceTree = "<group>"; };
+		73D7E9512831650B001DE6DD /* ARKitTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARKitTracker.swift; sourceTree = "<group>"; };
+		73D7E9522831650B001DE6DD /* ARKitTrackerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARKitTrackerConfiguration.swift; sourceTree = "<group>"; };
+		73D7E9542831650B001DE6DD /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
+		73D7E9572831650B001DE6DD /* SlidingAverageableWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidingAverageableWindow.swift; sourceTree = "<group>"; };
+		73D7E95A2831650B001DE6DD /* Averageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Averageable.swift; sourceTree = "<group>"; };
+		73D7E95D2831650B001DE6DD /* Device+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+Extensions.swift"; sourceTree = "<group>"; };
+		73D7E95E2831650B001DE6DD /* Publishers+ZipMany.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publishers+ZipMany.swift"; sourceTree = "<group>"; };
+		73D7E95F2831650B001DE6DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		73D7E9602831650B001DE6DD /* simd_float4x4+Averageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd_float4x4+Averageable.swift"; sourceTree = "<group>"; };
+		73D7E9612831650B001DE6DD /* CGPoint+Averageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Averageable.swift"; sourceTree = "<group>"; };
+		73D7E9622831650B001DE6DD /* SCNVector3+Averageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Averageable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,41 +90,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				695363623740B5B75EFDA7B3 /* Pods_GazeTracker_Example.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		607FACE21AFB9204008FA782 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				63C0D8ECD9CEB2BCE0E299C9 /* Pods_GazeTracker_Tests.framework in Frameworks */,
+				732EA84328315C2700F2C642 /* OrderedCollections in Frameworks */,
+				732EA83F28315C2700F2C642 /* Collections in Frameworks */,
+				732EA84128315C2700F2C642 /* DequeModule in Frameworks */,
+				732EA83928315AD100F2C642 /* DeviceKit in Frameworks */,
+				732EA83C28315B1700F2C642 /* NotificationBannerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5AB2CDB15C679973C2C43FCD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				45592A854B0E5CE130F8499D /* Pods-GazeTracker_Example.debug.xcconfig */,
-				8DA11BE0E3407707FD96B34D /* Pods-GazeTracker_Example.release.xcconfig */,
-				FDAD3602F0F1AEAEF1ADECA9 /* Pods-GazeTracker_Tests.debug.xcconfig */,
-				AF3E1F7B616BC9DF79830131 /* Pods-GazeTracker_Tests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for GazeTracker */,
-				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				5AB2CDB15C679973C2C43FCD /* Pods */,
-				A07AC207DC3547FB0B85EF62 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				607FACD01AFB9204008FA782 /* GazeTracker_Example.app */,
-				607FACE51AFB9204008FA782 /* GazeTracker_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +120,7 @@
 		607FACD21AFB9204008FA782 /* Example for GazeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				73D7E9322831650B001DE6DD /* GazeTracker */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -126,40 +141,207 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		607FACE81AFB9204008FA782 /* Tests */ = {
+		73D7E9322831650B001DE6DD /* GazeTracker */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
-				607FACE91AFB9204008FA782 /* Supporting Files */,
+				73D7E9332831650B001DE6DD /* Core */,
+				73D7E9552831650B001DE6DD /* Utils */,
+				73D7E95B2831650B001DE6DD /* Helpers */,
 			);
-			path = Tests;
+			name = GazeTracker;
+			path = ../../Sources/GazeTracker;
 			sourceTree = "<group>";
 		};
-		607FACE91AFB9204008FA782 /* Supporting Files */ = {
+		73D7E9332831650B001DE6DD /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEA1AFB9204008FA782 /* Info.plist */,
+				73D7E9342831650B001DE6DD /* Configuration */,
+				73D7E93E2831650B001DE6DD /* Frontend */,
+				73D7E94B2831650B001DE6DD /* Backend */,
 			);
-			name = "Supporting Files";
+			path = Core;
 			sourceTree = "<group>";
 		};
-		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
+		73D7E9342831650B001DE6DD /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				FE62FD80459047D6ACA86966 /* GazeTracker.podspec */,
-				95A83F0198897CFE5A28625C /* README.md */,
-				908D0759FEE2FEF49120B277 /* LICENSE */,
+				73D7E9352831650B001DE6DD /* EyeTrackingConfiguration.swift */,
+				73D7E9362831650B001DE6DD /* EyeTrackingSystem.swift */,
+				73D7E9372831650B001DE6DD /* Erasure */,
+				73D7E9382831650B001DE6DD /* Protocols */,
 			);
-			name = "Podspec Metadata";
+			path = Configuration;
 			sourceTree = "<group>";
 		};
-		A07AC207DC3547FB0B85EF62 /* Frameworks */ = {
+		73D7E9372831650B001DE6DD /* Erasure */ = {
 			isa = PBXGroup;
 			children = (
-				BC5F680D40A28E3CB5E2BC86 /* Pods_GazeTracker_Example.framework */,
-				9977F9264ECC80ED604AE680 /* Pods_GazeTracker_Tests.framework */,
 			);
-			name = Frameworks;
+			path = Erasure;
+			sourceTree = "<group>";
+		};
+		73D7E9382831650B001DE6DD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E9392831650B001DE6DD /* BackendLayerProtocol.swift */,
+				73D7E93A2831650B001DE6DD /* Configurable */,
+				73D7E93C2831650B001DE6DD /* Operational */,
+				73D7E93D2831650B001DE6DD /* FrontendLayerProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		73D7E93A2831650B001DE6DD /* Configurable */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E93B2831650B001DE6DD /* ConfigurableLayer.swift */,
+			);
+			path = Configurable;
+			sourceTree = "<group>";
+		};
+		73D7E93C2831650B001DE6DD /* Operational */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Operational;
+			sourceTree = "<group>";
+		};
+		73D7E93E2831650B001DE6DD /* Frontend */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E93F2831650B001DE6DD /* UIKitDispatcher */,
+				73D7E9452831650B001DE6DD /* Gesture */,
+				73D7E94A2831650B001DE6DD /* Event */,
+			);
+			path = Frontend;
+			sourceTree = "<group>";
+		};
+		73D7E93F2831650B001DE6DD /* UIKitDispatcher */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E9402831650B001DE6DD /* GestureExecutionSystem.swift */,
+				73D7E9412831650B001DE6DD /* EventDispatcherConfiguration.swift */,
+				73D7E9422831650B001DE6DD /* Event */,
+				73D7E9442831650B001DE6DD /* EventDispatcher.swift */,
+			);
+			path = UIKitDispatcher;
+			sourceTree = "<group>";
+		};
+		73D7E9422831650B001DE6DD /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E9432831650B001DE6DD /* GazeEvent.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		73D7E9452831650B001DE6DD /* Gesture */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E9462831650B001DE6DD /* GazeGestureRecognizer.swift */,
+				73D7E9472831650B001DE6DD /* BlinkGestureRecognizer.swift */,
+				73D7E9482831650B001DE6DD /* LongGazeGestureRecognizer.swift */,
+				73D7E9492831650B001DE6DD /* BaseEyeGestureRecognizer.swift */,
+			);
+			path = Gesture;
+			sourceTree = "<group>";
+		};
+		73D7E94A2831650B001DE6DD /* Event */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		73D7E94B2831650B001DE6DD /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E94C2831650B001DE6DD /* GazeTrackingBackendDelegate.swift */,
+				73D7E94D2831650B001DE6DD /* Model */,
+				73D7E94F2831650B001DE6DD /* ARKit */,
+			);
+			path = Backend;
+			sourceTree = "<group>";
+		};
+		73D7E94D2831650B001DE6DD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E94E2831650B001DE6DD /* GazeTrackingEvent.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		73D7E94F2831650B001DE6DD /* ARKit */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E9502831650B001DE6DD /* CoordinateMapper.swift */,
+				73D7E9512831650B001DE6DD /* ARKitTracker.swift */,
+				73D7E9522831650B001DE6DD /* ARKitTrackerConfiguration.swift */,
+				73D7E9532831650B001DE6DD /* CoordinateMapper */,
+				73D7E9542831650B001DE6DD /* Debouncer.swift */,
+			);
+			path = ARKit;
+			sourceTree = "<group>";
+		};
+		73D7E9532831650B001DE6DD /* CoordinateMapper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoordinateMapper;
+			sourceTree = "<group>";
+		};
+		73D7E9552831650B001DE6DD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E9562831650B001DE6DD /* SlidingWindow */,
+				73D7E9582831650B001DE6DD /* Extensions */,
+				73D7E9592831650B001DE6DD /* Protocols */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		73D7E9562831650B001DE6DD /* SlidingWindow */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E9572831650B001DE6DD /* SlidingAverageableWindow.swift */,
+			);
+			path = SlidingWindow;
+			sourceTree = "<group>";
+		};
+		73D7E9582831650B001DE6DD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		73D7E9592831650B001DE6DD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E95A2831650B001DE6DD /* Averageable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		73D7E95B2831650B001DE6DD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E95C2831650B001DE6DD /* Extensions */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		73D7E95C2831650B001DE6DD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				73D7E95D2831650B001DE6DD /* Device+Extensions.swift */,
+				73D7E95E2831650B001DE6DD /* Publishers+ZipMany.swift */,
+				73D7E95F2831650B001DE6DD /* Extensions.swift */,
+				73D7E9602831650B001DE6DD /* simd_float4x4+Averageable.swift */,
+				73D7E9612831650B001DE6DD /* CGPoint+Averageable.swift */,
+				73D7E9622831650B001DE6DD /* SCNVector3+Averageable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,39 +351,25 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "GazeTracker_Example" */;
 			buildPhases = (
-				3CAD22FEF18009B29C2F56B4 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				78C3A9BCA3D905925BD2FF35 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = GazeTracker_Example;
+			packageProductDependencies = (
+				732EA83828315AD100F2C642 /* DeviceKit */,
+				732EA83B28315B1700F2C642 /* NotificationBannerSwift */,
+				732EA83E28315C2700F2C642 /* Collections */,
+				732EA84028315C2700F2C642 /* DequeModule */,
+				732EA84228315C2700F2C642 /* OrderedCollections */,
+			);
 			productName = GazeTracker;
 			productReference = 607FACD01AFB9204008FA782 /* GazeTracker_Example.app */;
 			productType = "com.apple.product-type.application";
-		};
-		607FACE41AFB9204008FA782 /* GazeTracker_Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "GazeTracker_Tests" */;
-			buildPhases = (
-				FDC0640B6FA80DF8C27D7290 /* [CP] Check Pods Manifest.lock */,
-				607FACE11AFB9204008FA782 /* Sources */,
-				607FACE21AFB9204008FA782 /* Frameworks */,
-				607FACE31AFB9204008FA782 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
-			);
-			name = GazeTracker_Tests;
-			productName = Tests;
-			productReference = 607FACE51AFB9204008FA782 /* GazeTracker_Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -218,12 +386,6 @@
 						DevelopmentTeam = 593ZV4B3B7;
 						LastSwiftMigration = 0900;
 					};
-					607FACE41AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = 593ZV4B3B7;
-						LastSwiftMigration = 0900;
-						TestTargetID = 607FACCF1AFB9204008FA782;
-					};
 				};
 			};
 			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "GazeTracker" */;
@@ -236,12 +398,16 @@
 				Base,
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
+			packageReferences = (
+				732EA83728315AD100F2C642 /* XCRemoteSwiftPackageReference "DeviceKit" */,
+				732EA83A28315B1700F2C642 /* XCRemoteSwiftPackageReference "NotificationBanner" */,
+				732EA83D28315C2700F2C642 /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				607FACCF1AFB9204008FA782 /* GazeTracker_Example */,
-				607FACE41AFB9204008FA782 /* GazeTracker_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -256,117 +422,48 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		607FACE31AFB9204008FA782 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3CAD22FEF18009B29C2F56B4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GazeTracker_Example-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		78C3A9BCA3D905925BD2FF35 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GazeTracker_Example/Pods-GazeTracker_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GazeTracker/GazeTracker.framework",
-				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GazeTracker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GazeTracker_Example/Pods-GazeTracker_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FDC0640B6FA80DF8C27D7290 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GazeTracker_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73D7E9792831650B001DE6DD /* Publishers+ZipMany.swift in Sources */,
+				73D7E9662831650B001DE6DD /* ConfigurableLayer.swift in Sources */,
+				73D7E9682831650B001DE6DD /* GestureExecutionSystem.swift in Sources */,
 				732EA7D52829139000F2C642 /* GestureRecognitionTesting.swift in Sources */,
+				73D7E96D2831650B001DE6DD /* BlinkGestureRecognizer.swift in Sources */,
+				73D7E96A2831650B001DE6DD /* GazeEvent.swift in Sources */,
+				73D7E96C2831650B001DE6DD /* GazeGestureRecognizer.swift in Sources */,
+				73D7E96F2831650B001DE6DD /* BaseEyeGestureRecognizer.swift in Sources */,
+				73D7E9772831650B001DE6DD /* Averageable.swift in Sources */,
 				73A2FE2727C260F0008F1D4B /* PrecisionTestViewController.swift in Sources */,
+				73D7E9632831650B001DE6DD /* EyeTrackingConfiguration.swift in Sources */,
+				73D7E9702831650B001DE6DD /* GazeTrackingBackendDelegate.swift in Sources */,
+				73D7E9722831650B001DE6DD /* CoordinateMapper.swift in Sources */,
+				73D7E96E2831650B001DE6DD /* LongGazeGestureRecognizer.swift in Sources */,
+				73D7E9782831650B001DE6DD /* Device+Extensions.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				73D7E97C2831650B001DE6DD /* CGPoint+Averageable.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		607FACE11AFB9204008FA782 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				73D7E9752831650B001DE6DD /* Debouncer.swift in Sources */,
+				73D7E96B2831650B001DE6DD /* EventDispatcher.swift in Sources */,
+				73D7E9732831650B001DE6DD /* ARKitTracker.swift in Sources */,
+				73D7E97B2831650B001DE6DD /* simd_float4x4+Averageable.swift in Sources */,
+				73D7E9672831650B001DE6DD /* FrontendLayerProtocol.swift in Sources */,
+				73D7E9762831650B001DE6DD /* SlidingAverageableWindow.swift in Sources */,
+				73D7E9742831650B001DE6DD /* ARKitTrackerConfiguration.swift in Sources */,
+				73D7E9712831650B001DE6DD /* GazeTrackingEvent.swift in Sources */,
+				73D7E97D2831650B001DE6DD /* SCNVector3+Averageable.swift in Sources */,
+				73D7E9692831650B001DE6DD /* EventDispatcherConfiguration.swift in Sources */,
+				73D7E9652831650B001DE6DD /* BackendLayerProtocol.swift in Sources */,
+				73D7E9642831650B001DE6DD /* EyeTrackingSystem.swift in Sources */,
+				73D7E97A2831650B001DE6DD /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 607FACCF1AFB9204008FA782 /* GazeTracker_Example */;
-			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
@@ -474,86 +571,47 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45592A854B0E5CE130F8499D /* Pods-GazeTracker_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 593ZV4B3B7;
 				INFOPLIST_FILE = GazeTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.enoxus.GazeTracker-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8DA11BE0E3407707FD96B34D /* Pods-GazeTracker_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 593ZV4B3B7;
 				INFOPLIST_FILE = GazeTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.enoxus.GazeTracker-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		607FACF31AFB9204008FA782 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FDAD3602F0F1AEAEF1ADECA9 /* Pods-GazeTracker_Tests.debug.xcconfig */;
-			buildSettings = {
-				DEVELOPMENT_TEAM = 593ZV4B3B7;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GazeTracker_Example.app/GazeTracker_Example";
-			};
-			name = Debug;
-		};
-		607FACF41AFB9204008FA782 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF3E1F7B616BC9DF79830131 /* Pods-GazeTracker_Tests.release.xcconfig */;
-			buildSettings = {
-				DEVELOPMENT_TEAM = 593ZV4B3B7;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GazeTracker_Example.app/GazeTracker_Example";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -578,16 +636,62 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "GazeTracker_Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				607FACF31AFB9204008FA782 /* Debug */,
-				607FACF41AFB9204008FA782 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		732EA83728315AD100F2C642 /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devicekit/DeviceKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		732EA83A28315B1700F2C642 /* XCRemoteSwiftPackageReference "NotificationBanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Daltron/NotificationBanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		732EA83D28315C2700F2C642 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		732EA83828315AD100F2C642 /* DeviceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 732EA83728315AD100F2C642 /* XCRemoteSwiftPackageReference "DeviceKit" */;
+			productName = DeviceKit;
+		};
+		732EA83B28315B1700F2C642 /* NotificationBannerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 732EA83A28315B1700F2C642 /* XCRemoteSwiftPackageReference "NotificationBanner" */;
+			productName = NotificationBannerSwift;
+		};
+		732EA83E28315C2700F2C642 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 732EA83D28315C2700F2C642 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		732EA84028315C2700F2C642 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 732EA83D28315C2700F2C642 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		732EA84228315C2700F2C642 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 732EA83D28315C2700F2C642 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
 }
