@@ -11,13 +11,20 @@
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		732EA7D52829139000F2C642 /* GestureRecognitionTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732EA7D42829139000F2C642 /* GestureRecognitionTesting.swift */; };
 		732EA83928315AD100F2C642 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA83828315AD100F2C642 /* DeviceKit */; };
-		732EA83C28315B1700F2C642 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA83B28315B1700F2C642 /* NotificationBannerSwift */; };
 		732EA83F28315C2700F2C642 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA83E28315C2700F2C642 /* Collections */; };
 		732EA84128315C2700F2C642 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA84028315C2700F2C642 /* DequeModule */; };
 		732EA84328315C2700F2C642 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 732EA84228315C2700F2C642 /* OrderedCollections */; };
-		73A2FE2727C260F0008F1D4B /* PrecisionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A2FE2627C260F0008F1D4B /* PrecisionTestViewController.swift */; };
+		7344B578285CDE120030D839 /* CenteredCollectionView in Frameworks */ = {isa = PBXBuildFile; productRef = 7344B577285CDE120030D839 /* CenteredCollectionView */; };
+		7344B57B285CF2BE0030D839 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7344B57A285CF2BE0030D839 /* Video.swift */; };
+		7344B587285CF8620030D839 /* 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7344B584285CF8620030D839 /* 1.mp4 */; };
+		7344B588285CF8620030D839 /* 2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7344B585285CF8620030D839 /* 2.mp4 */; };
+		7344B589285CF8620030D839 /* 3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7344B586285CF8620030D839 /* 3.mp4 */; };
+		7344B58B285CFC2F0030D839 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7344B58A285CFC2F0030D839 /* VideoCell.swift */; };
+		7344B58D285D04220030D839 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7344B58C285D04220030D839 /* UIView+Extensions.swift */; };
+		7344B58F285E07350030D839 /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7344B58E285E07350030D839 /* PlayerController.swift */; };
+		7344B591285E08790030D839 /* OverlayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7344B590285E08790030D839 /* OverlayPresenter.swift */; };
+		7349A424285E2FEA00FCA14A /* SceneDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7349A423285E2FEA00FCA14A /* SceneDisplayViewController.swift */; };
 		73D7E9632831650B001DE6DD /* EyeTrackingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9352831650B001DE6DD /* EyeTrackingConfiguration.swift */; };
 		73D7E9642831650B001DE6DD /* EyeTrackingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9362831650B001DE6DD /* EyeTrackingSystem.swift */; };
 		73D7E9652831650B001DE6DD /* BackendLayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7E9392831650B001DE6DD /* BackendLayerProtocol.swift */; };
@@ -54,8 +61,15 @@
 		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		732EA7D42829139000F2C642 /* GestureRecognitionTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognitionTesting.swift; sourceTree = "<group>"; };
-		73A2FE2627C260F0008F1D4B /* PrecisionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecisionTestViewController.swift; sourceTree = "<group>"; };
+		7344B57A285CF2BE0030D839 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		7344B584285CF8620030D839 /* 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.mp4; sourceTree = "<group>"; };
+		7344B585285CF8620030D839 /* 2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.mp4; sourceTree = "<group>"; };
+		7344B586285CF8620030D839 /* 3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 3.mp4; sourceTree = "<group>"; };
+		7344B58A285CFC2F0030D839 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		7344B58C285D04220030D839 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		7344B58E285E07350030D839 /* PlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
+		7344B590285E08790030D839 /* OverlayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayPresenter.swift; sourceTree = "<group>"; };
+		7349A423285E2FEA00FCA14A /* SceneDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDisplayViewController.swift; sourceTree = "<group>"; };
 		73D7E9352831650B001DE6DD /* EyeTrackingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EyeTrackingConfiguration.swift; sourceTree = "<group>"; };
 		73D7E9362831650B001DE6DD /* EyeTrackingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EyeTrackingSystem.swift; sourceTree = "<group>"; };
 		73D7E9392831650B001DE6DD /* BackendLayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendLayerProtocol.swift; sourceTree = "<group>"; };
@@ -93,8 +107,8 @@
 				732EA84328315C2700F2C642 /* OrderedCollections in Frameworks */,
 				732EA83F28315C2700F2C642 /* Collections in Frameworks */,
 				732EA84128315C2700F2C642 /* DequeModule in Frameworks */,
+				7344B578285CDE120030D839 /* CenteredCollectionView in Frameworks */,
 				732EA83928315AD100F2C642 /* DeviceKit in Frameworks */,
-				732EA83C28315B1700F2C642 /* NotificationBannerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,14 +134,19 @@
 		607FACD21AFB9204008FA782 /* Example for GazeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				7344B583285CF8620030D839 /* videos */,
 				73D7E9322831650B001DE6DD /* GazeTracker */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
-				73A2FE2627C260F0008F1D4B /* PrecisionTestViewController.swift */,
-				732EA7D42829139000F2C642 /* GestureRecognitionTesting.swift */,
+				7344B57A285CF2BE0030D839 /* Video.swift */,
+				7344B58A285CFC2F0030D839 /* VideoCell.swift */,
+				7344B58C285D04220030D839 /* UIView+Extensions.swift */,
+				7344B58E285E07350030D839 /* PlayerController.swift */,
+				7344B590285E08790030D839 /* OverlayPresenter.swift */,
+				7349A423285E2FEA00FCA14A /* SceneDisplayViewController.swift */,
 			);
 			name = "Example for GazeTracker";
 			path = GazeTracker;
@@ -139,6 +158,16 @@
 				607FACD41AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7344B583285CF8620030D839 /* videos */ = {
+			isa = PBXGroup;
+			children = (
+				7344B584285CF8620030D839 /* 1.mp4 */,
+				7344B585285CF8620030D839 /* 2.mp4 */,
+				7344B586285CF8620030D839 /* 3.mp4 */,
+			);
+			path = videos;
 			sourceTree = "<group>";
 		};
 		73D7E9322831650B001DE6DD /* GazeTracker */ = {
@@ -362,10 +391,10 @@
 			name = GazeTracker_Example;
 			packageProductDependencies = (
 				732EA83828315AD100F2C642 /* DeviceKit */,
-				732EA83B28315B1700F2C642 /* NotificationBannerSwift */,
 				732EA83E28315C2700F2C642 /* Collections */,
 				732EA84028315C2700F2C642 /* DequeModule */,
 				732EA84228315C2700F2C642 /* OrderedCollections */,
+				7344B577285CDE120030D839 /* CenteredCollectionView */,
 			);
 			productName = GazeTracker;
 			productReference = 607FACD01AFB9204008FA782 /* GazeTracker_Example.app */;
@@ -400,8 +429,8 @@
 			mainGroup = 607FACC71AFB9204008FA782;
 			packageReferences = (
 				732EA83728315AD100F2C642 /* XCRemoteSwiftPackageReference "DeviceKit" */,
-				732EA83A28315B1700F2C642 /* XCRemoteSwiftPackageReference "NotificationBanner" */,
 				732EA83D28315C2700F2C642 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				7344B576285CDE120030D839 /* XCRemoteSwiftPackageReference "CenteredCollectionView" */,
 			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
@@ -417,8 +446,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7344B588285CF8620030D839 /* 2.mp4 in Resources */,
+				7344B587285CF8620030D839 /* 1.mp4 in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				7344B589285CF8620030D839 /* 3.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,14 +464,14 @@
 				73D7E9792831650B001DE6DD /* Publishers+ZipMany.swift in Sources */,
 				73D7E9662831650B001DE6DD /* ConfigurableLayer.swift in Sources */,
 				73D7E9682831650B001DE6DD /* GestureExecutionSystem.swift in Sources */,
-				732EA7D52829139000F2C642 /* GestureRecognitionTesting.swift in Sources */,
 				73D7E96D2831650B001DE6DD /* BlinkGestureRecognizer.swift in Sources */,
 				73D7E96A2831650B001DE6DD /* GazeEvent.swift in Sources */,
+				7349A424285E2FEA00FCA14A /* SceneDisplayViewController.swift in Sources */,
 				73D7E96C2831650B001DE6DD /* GazeGestureRecognizer.swift in Sources */,
 				73D7E96F2831650B001DE6DD /* BaseEyeGestureRecognizer.swift in Sources */,
 				73D7E9772831650B001DE6DD /* Averageable.swift in Sources */,
-				73A2FE2727C260F0008F1D4B /* PrecisionTestViewController.swift in Sources */,
 				73D7E9632831650B001DE6DD /* EyeTrackingConfiguration.swift in Sources */,
+				7344B591285E08790030D839 /* OverlayPresenter.swift in Sources */,
 				73D7E9702831650B001DE6DD /* GazeTrackingBackendDelegate.swift in Sources */,
 				73D7E9722831650B001DE6DD /* CoordinateMapper.swift in Sources */,
 				73D7E96E2831650B001DE6DD /* LongGazeGestureRecognizer.swift in Sources */,
@@ -447,6 +479,7 @@
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				73D7E97C2831650B001DE6DD /* CGPoint+Averageable.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				7344B58F285E07350030D839 /* PlayerController.swift in Sources */,
 				73D7E9752831650B001DE6DD /* Debouncer.swift in Sources */,
 				73D7E96B2831650B001DE6DD /* EventDispatcher.swift in Sources */,
 				73D7E9732831650B001DE6DD /* ARKitTracker.swift in Sources */,
@@ -458,6 +491,9 @@
 				73D7E97D2831650B001DE6DD /* SCNVector3+Averageable.swift in Sources */,
 				73D7E9692831650B001DE6DD /* EventDispatcherConfiguration.swift in Sources */,
 				73D7E9652831650B001DE6DD /* BackendLayerProtocol.swift in Sources */,
+				7344B58B285CFC2F0030D839 /* VideoCell.swift in Sources */,
+				7344B57B285CF2BE0030D839 /* Video.swift in Sources */,
+				7344B58D285D04220030D839 /* UIView+Extensions.swift in Sources */,
 				73D7E9642831650B001DE6DD /* EyeTrackingSystem.swift in Sources */,
 				73D7E97A2831650B001DE6DD /* Extensions.swift in Sources */,
 			);
@@ -647,20 +683,20 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		732EA83A28315B1700F2C642 /* XCRemoteSwiftPackageReference "NotificationBanner" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Daltron/NotificationBanner";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		732EA83D28315C2700F2C642 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
+			};
+		};
+		7344B576285CDE120030D839 /* XCRemoteSwiftPackageReference "CenteredCollectionView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BenEmdon/CenteredCollectionView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -670,11 +706,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 732EA83728315AD100F2C642 /* XCRemoteSwiftPackageReference "DeviceKit" */;
 			productName = DeviceKit;
-		};
-		732EA83B28315B1700F2C642 /* NotificationBannerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 732EA83A28315B1700F2C642 /* XCRemoteSwiftPackageReference "NotificationBanner" */;
-			productName = NotificationBannerSwift;
 		};
 		732EA83E28315C2700F2C642 /* Collections */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -690,6 +721,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 732EA83D28315C2700F2C642 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		7344B577285CDE120030D839 /* CenteredCollectionView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7344B576285CDE120030D839 /* XCRemoteSwiftPackageReference "CenteredCollectionView" */;
+			productName = CenteredCollectionView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

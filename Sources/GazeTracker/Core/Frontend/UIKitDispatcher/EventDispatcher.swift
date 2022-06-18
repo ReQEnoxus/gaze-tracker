@@ -85,7 +85,7 @@ extension EventDispatcher: GazeTrackingBackendDelegate {
         executionSystems.insert(system)
         system.dispatch(event: gazeEvent)
         
-        if configuration.displayGazeLocation {
+        if configuration.displayGazeLocation, event.name == .gazePositionChanged {
             rootWindow?.bringSubviewToFront(pointerView)
             pointerView.center = event.screenPoint
         }
