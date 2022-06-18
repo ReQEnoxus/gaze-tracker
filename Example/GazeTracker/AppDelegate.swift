@@ -7,20 +7,58 @@
 //
 
 import UIKit
+import ARKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var newWindow: UIWindow?
+    private var arView: ARSCNView!
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
         let viewController = ViewController()
-//        let viewController = GestureRecognizerTestViewController()
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
+        addARWindow()
+        EyeTrackingSystem.initializeWithCustomConfiguration(
+            EyeTrackingConfiguration<ARKitTracker, EventDispatcher>
+                .builder()
+                .backend(
+                    config: ARKitTrackerConfiguration(
+                        blinkFrameOffset: 20,
+                        leftEyeBlinkThreshold: 0.3,
+                        rightEyeBlinkThreshold: 0.3,
+                        sceneView: arView
+                    )
+                )
+                .frontend(config: EventDispatcherConfiguration(displayGazeLocation: true))
+                .build()
+        )
+        EyeTrackingSystem.startTracking()
         return true
+    }
+    
+    private func addARWindow() {
+        let window = UIWindow(
+            frame: CGRect(
+                x: UIScreen.main.bounds.width - 120 - 24,
+                y: UIScreen.main.bounds.height - 240 - 24,
+                width: 120,
+                height: 240
+            )
+        )
+        window.windowLevel = .alert
+        window.rootViewController = SceneDisplayViewController()
+        window.layer.cornerRadius = 20
+        arView = window.rootViewController!.view as! ARSCNView
+        
+        window.isHidden = false
+        window.isUserInteractionEnabled = false
+        
+        newWindow = window
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

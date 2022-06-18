@@ -36,7 +36,6 @@ open class BlinkGestureRecognizer: BaseEyeGestureRecognizer {
             state = .recognized
         } else {
             debouncer.debounce { [weak self] in
-                print("log_failed")
                 self?.state = .failed
             }
         }
